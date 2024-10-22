@@ -1,0 +1,40 @@
+<div class="lists row">
+  <div class="col-md-12 col-lg-6 col-xxxl-6" *ngFor="let establishment of establishments">
+    <nb-card class="list-card">
+      <nb-card-header>{{ establishment.name }}</nb-card-header>
+      <nb-card-body>
+        <nb-select placeholder="Select a subject">
+          <nb-option *ngFor="let subject of establishment.subjects" [value]="subject">{{ subject }}</nb-option>
+        </nb-select>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+
+<!-- <div class="lists row">
+  <div class="col-md-12 col-lg-6 col-xxxl-6">
+    <nb-card class="list-card">
+      <nb-card-header>Some Fruits</nb-card-header>
+      <nb-card-body>
+        <nb-list>
+          <nb-list-item *ngFor="let fruit of fruits">
+            {{ fruit }}
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-md-12 col-lg-6 col-xxxl-6">
+    <nb-card class="list-card" size="small">
+      <nb-card-header>Users</nb-card-header>
+      <nb-list>
+        <nb-list-item *ngFor="let user of users">
+          <nb-user [name]="user.name" [title]="user.title">
+          </nb-user>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
+</div> -->
