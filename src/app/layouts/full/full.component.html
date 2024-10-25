@@ -6,17 +6,20 @@
 
     <div class="p-16">
       <div class="mb-16">
-        <a href="javascript:void(0)" class="d-flex align-items-center">
-          <img src="assets/images/favicon.svg" alt=""> <span class="ms-16 fw-medium fs-26">Flexy</span>
+        <a href="javascript:void(0)" class="d-flex     justify-content-center">
+          <!-- <img src="assets/images/favicon.svg" alt=""> <span class="ms-16 fw-medium fs-26">Flexy</span> -->
+          <img src="assets/images/logopuae.png" alt="">
         </a>
-
       </div>
 
       <div class="pt-8">
         <ul>
           <li class="list-group mb-2" *ngFor="let sidenav of sidebarMenu">
             <a matRipple [matRippleColor]="'#f7f8f443'" routerLink="{{ sidenav.link }}"
-              class="sidebar-menu w-100 d-flex align-items-center" [routerLinkActive]="routerActive">
+              class="sidebar-menu w-100 d-flex align-items-center"
+               [routerLinkActive]="routerActive"
+               [routerLinkActiveOptions]="{ exact: true }">
+
               <i-feather name="{{ sidenav.icon }}" class="feather-base me-12"></i-feather> <span
                 class="ps-4">{{ sidenav.menu }}</span>
             </a>
@@ -27,8 +30,8 @@
       <div class="m-8 pt-4">
         <div class="buy-flexy ps-24 pe-24 mt-48 mb-48">
           <div class="text-center">
-            <img src="assets/images/sidebar-buynow-bg.svg" class="img-fluid" alt="">
-            <div class="pt-24 pb-24 mt-8">
+            <!-- <img src="assets/images/sidebar-buynow-bg.svg" class="img-fluid" alt=""> -->
+            <!-- <div class="pt-24 pb-24 mt-8">
               <p class="fw-bold fs-18 mb-16 pb-8">Get This for Free</p>
               <ul>
                 <li class="mb-8">
@@ -38,7 +41,7 @@
                   <a href="https://www.wrappixel.com/templates/flexy-material-angular-admin/?ref=33" mat-flat-button color="accent" class="w-100 fw-light fs-14">Check Pro</a>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -94,7 +97,7 @@
 
     <p *ngIf="!hideComponenets" class="text-center pb-24 fs-16">© 2024 All rights reserved by <a
         href="https://www.wrappixel.com/templates/category/free-angular-templates/" target="_blank"
-        class="text-indigo">Wrappixel.com</a></p>
+        class="text-indigo">Abdelmalek Essaâdi University </a></p>
 
   </mat-sidenav-content>
 
