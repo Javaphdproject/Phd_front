@@ -21,6 +21,10 @@ import { FullComponent } from './layouts/full/full.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AcceuilComponent } from './acceuil/acceuil.component';
+import { CEDComponent } from './Users-dashboards/ced/ced.component';
+import { CandidateComponent } from './Users-dashboards/candidate/candidate.component';
+import { ProfesseurComponent } from './Users-dashboards/professeur/professeur.component';
+import { PreinscriptionComponent } from './Users-dashboards/ced/preinscription/preinscription.component';
 
 const routes: Routes = [
   {
@@ -49,7 +53,24 @@ const routes: Routes = [
       //login
       {path:"login", component:LoginComponent},
       {path:"register", component:RegisterComponent},
-      {path:"acceuil", component:AcceuilComponent}
+      {path:"acceuil", component:AcceuilComponent},
+
+      //dash CED
+      {path:"users/ced", component:CEDComponent},
+      {path:"users/ced/preinscription", component:PreinscriptionComponent},
+
+
+
+      //dash candidate
+      {path:"users/candidate", component:CandidateComponent},
+
+
+      //dash professeur
+      {path:"users/professeur", component:ProfesseurComponent}
+
+
+
+
     ]
   },
 
