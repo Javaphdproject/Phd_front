@@ -49,11 +49,11 @@ console.log(response);
 console.log(role);
           // Navigate based on role
           if (role === 'CANDIDAT') {
-            this.router.navigate(['/candidate']);
+            this.router.navigate(['/users/candidate']);
           } else if (role === 'CED') {
-            this.router.navigate(['/ced']);
+            this.router.navigate(['/users/ced']);
           } else if (role === 'PROFESSEUR') {
-            this.router.navigate(['/professeur']);
+            this.router.navigate(['/users/professeur']);
           } else {
             alert('Unrecognized role!');
           }
