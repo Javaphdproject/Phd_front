@@ -25,6 +25,14 @@ import { CEDComponent } from './Users-dashboards/ced/ced.component';
 import { CandidateComponent } from './Users-dashboards/candidate/candidate.component';
 import { ProfesseurComponent } from './Users-dashboards/professeur/professeur.component';
 import { PreinscriptionComponent } from './Users-dashboards/ced/preinscription/preinscription.component';
+import { ChoisirSujetComponent } from './Users-dashboards/candidate/choisir-sujet/choisir-sujet.component';
+import { CandidatureComponent } from './Users-dashboards/candidate/candidature/candidature.component';
+import { ConvocationComponent } from './Users-dashboards/candidate/convocation/convocation.component';
+import { DemandeBourseComponent } from './Users-dashboards/candidate/demande-bourse/demande-bourse.component';
+import { MesSujetsComponent } from './Users-dashboards/professeur/mes-sujets/mes-sujets.component';
+import { MesPlanningsComponent } from './Users-dashboards/professeur/mes-plannings/mes-plannings.component';
+import { EntretiensComponent } from './Users-dashboards/professeur/entretiens/entretiens.component';
+import { MesDoctorantsComponent } from './Users-dashboards/professeur/mes-doctorants/mes-doctorants.component';
 
 
 const routes: Routes = [
@@ -59,15 +67,25 @@ const routes: Routes = [
       //dash CED
       {path:"users/ced", component:CEDComponent},
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
+      {path:"users/ced/preinscription", component:PreinscriptionComponent},
+      {path:"users/ced/preinscription", component:PreinscriptionComponent},
 
 
 
       //dash candidate
       {path:"users/candidate", component:CandidateComponent},
+      { path: "users/candidate/sujet", component: ChoisirSujetComponent },
+      { path: "users/candidate/candidature", component: CandidatureComponent },
+      { path: "users/candidate/convocation", component: ConvocationComponent },
+      { path: "users/candidate/bourse", component: DemandeBourseComponent },
 
 
       //dash professeur
-      {path:"users/professeur", component:ProfesseurComponent}
+      {path:"users/professeur", component:ProfesseurComponent},
+      {path:"users/professeur/MesSujets", component:MesSujetsComponent},
+      {path:"users/professeur/MesPlannings", component:MesPlanningsComponent},
+      {path:"users/professeur/entretiens", component:EntretiensComponent},
+      {path:"users/professeur/MesDoctorants", component:MesDoctorantsComponent}
 
 
 
