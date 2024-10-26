@@ -16,6 +16,7 @@ import { ComponentsModule } from './components/components.module';
 import { CEDComponent } from "./Users-dashboards/ced/ced.component";
 import { ProfesseurComponent } from "./Users-dashboards/professeur/professeur.component";
 import { CandidateComponent } from "./Users-dashboards/candidate/candidate.component";
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CandidateComponent } from "./Users-dashboards/candidate/candidate.compo
     FormsModule,
     CEDComponent,
     ProfesseurComponent,
-    CandidateComponent
+    CandidateComponent,
+   HttpClientModule
 ],
   providers: [],
   bootstrap: [AppComponent]
