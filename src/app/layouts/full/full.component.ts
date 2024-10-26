@@ -90,29 +90,58 @@ export class FullComponent {
     else if (this.user == roles.candidate) {
       this.sidebarMenu = [
         {
-          link: "/home",
+          link: "/users/candidate",
           icon: "home",
-          menu: "Dashboard",
+          menu: "Dashboard Candidate",
         },
         {
-          link: "/button",
+          link: "/users/candidate/sujet",
           icon: "disc",
-          menu: "Les Sujets",
+          menu: "Choix des Sujets",
         },
-        
+        {
+          link: "/users/candidate/candidature",
+          icon: "layout",
+          menu: "Mes Candidature",
+        },
+        {
+          link: "/users/candidate/convocation",
+          icon: "menu",
+          menu: "Convocations",
+        },
+        {
+          link: "/users/candidate/bourse",
+          icon: "divide-circle",
+          menu: "Demande de Bourse",
+        },
       ];
     }
     else if (this.user == roles.professeur) {
       this.sidebarMenu = [
         {
-          link: "/home",
+          link: "/users/professeur",
           icon: "home",
           menu: "Dashboard",
         },
         {
-          link: "/button",
+          link: "/users/professeur/MesSujets",
           icon: "disc",
-          menu: "prof",
+          menu: "Mes Sujets",
+        },
+        {
+          link: "/users/professeur/MesPlannings",
+          icon: "disc",
+          menu: "Mes Plannings",
+        },
+        {
+          link: "/users/professeur/entretiens",
+          icon: "layout",
+          menu: "Les Candidats Convoques",
+        },
+        {
+          link: "/users/professeur/MesDoctorants",
+          icon: "menu",
+          menu: "Suivi des Doctorants",
         },
       ];
     }
