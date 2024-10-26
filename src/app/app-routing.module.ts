@@ -26,6 +26,7 @@ import { CandidateComponent } from './Users-dashboards/candidate/candidate.compo
 import { ProfesseurComponent } from './Users-dashboards/professeur/professeur.component';
 import { PreinscriptionComponent } from './Users-dashboards/ced/preinscription/preinscription.component';
 
+
 const routes: Routes = [
   {
     path:"",
