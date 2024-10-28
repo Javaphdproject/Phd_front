@@ -326,5 +326,12 @@ export class FullComponent {
   //   },
   // ]
 
+  logout() {
+    // Clear any stored session data (like tokens)
+    localStorage.clear();
+    sessionStorage.clear();
 
+    // Navigate to the login page
+    this.router.navigate(['/login']);
+  }
 }

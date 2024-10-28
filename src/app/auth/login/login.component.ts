@@ -23,7 +23,7 @@ import { Route, Router, RouterModule } from '@angular/router';
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  
+
 })
 export class LoginComponent {
 email : string = '';
@@ -68,5 +68,10 @@ console.log(role);
       alert('Login request failed');
     });
 }
-
+logout() {
+  // Clear stored data
+  localStorage.removeItem('authToken');
+  // Navigate back to the login page
+  this.router.navigate(['/login']);
+}
 }
