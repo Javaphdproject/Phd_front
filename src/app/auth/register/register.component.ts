@@ -37,23 +37,24 @@ usertype : string = "CANDIDAT";
 constructor(private http : HttpClient, private router : Router){
 
 }
-signup(){
+signup() {
   if (this.password !== this.confirmedpassword) {
-    alert('Passwords do not match!');
-    return;
+      alert('Passwords do not match!');
+      return;
   }
-let body ={
-  "nom": this.lname,
-  "prenom": this.fname,
-  "email": this.email,
-  "mdp":this.password,
-  "tel": this.tel,
-  "userType": this.usertype
+  let body = {
+      "nom": this.lname,
+      "prenom": this.fname,
+      "email": this.email,
+      "mdp": this.password,
+      "tel": this.tel,
+      "userType": this.usertype
+  };
+  this.http.post('http://localhost:8089/phd/auth/register', body, { responseType: 'text' })
+  .subscribe((response: any) => {
+      alert(response);
+      this.router.navigate(['/login']);
+  });
 }
-this.http.post('http://localhost:8089/phd/auth/register', body, { responseType: 'text' })
-.subscribe((response: any) => {
-  alert(response);
-  this.router.navigate(['/login']);
-});
-}
+
 }
