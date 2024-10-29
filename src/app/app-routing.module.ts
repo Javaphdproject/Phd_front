@@ -33,6 +33,7 @@ import { MesSujetsComponent } from './Users-dashboards/professeur/mes-sujets/mes
 import { MesPlanningsComponent } from './Users-dashboards/professeur/mes-plannings/mes-plannings.component';
 import { EntretiensComponent } from './Users-dashboards/professeur/entretiens/entretiens.component';
 import { MesDoctorantsComponent } from './Users-dashboards/professeur/mes-doctorants/mes-doctorants.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 const routes: Routes = [
@@ -85,10 +86,10 @@ const routes: Routes = [
       {path:"users/professeur/MesSujets", component:MesSujetsComponent},
       {path:"users/professeur/MesPlannings", component:MesPlanningsComponent},
       {path:"users/professeur/entretiens", component:EntretiensComponent},
-      {path:"users/professeur/MesDoctorants", component:MesDoctorantsComponent}
+      {path:"users/professeur/MesDoctorants", component:MesDoctorantsComponent},
 
 
-
+{path:"edit", component: EditProfileComponent},
 
     ]
   },

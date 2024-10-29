@@ -17,6 +17,7 @@ import { CEDComponent } from "./Users-dashboards/ced/ced.component";
 import { ProfesseurComponent } from "./Users-dashboards/professeur/professeur.component";
 import { CandidateComponent } from "./Users-dashboards/candidate/candidate.component";
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    MatIconModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FeatherModule.pick(allIcons),
