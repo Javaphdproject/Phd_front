@@ -1,1 +1,389 @@
-<p>structure-de-recherche works!</p>
+<!--
+
+  <div>
+    <h2>Structure de Recherche</h2>
+
+    <label for="cedSelect">Select CED:</label>
+    <select id="cedSelect" [(ngModel)]="selectedCedId" (change)="onCEDSelect()">
+      <option value="">-- Select a CED --</option>
+      <option *ngFor="let ced of ceds" [value]="ced.idCED">{{ ced.idCED }}</option>
+    </select>
+
+    <h3>Établissements for selected CED:</h3>
+    <ul>
+      <li *ngFor="let etablissement of etablissements">
+        {{ etablissement.nomEtablissement }}
+      </li>
+    </ul>
+  </div> -->
+  <!-- <div class="container">
+    <h2>List of Établissements</h2>
+    <ul>
+      <li *ngFor="let etablissement of etablissements" (click)="onEtablissementSelect(etablissement.id)">
+        {{ etablissement.nomEtablissement }}
+      </li>
+    </ul>
+
+    <div *ngIf="selectedEtablissementId">
+      <h3>Structures de Recherche</h3>
+      <ul>
+        <li *ngFor="let structure of structures" (click)="onStructureSelect(structure.idSTr)">
+          {{ structure.nom }}
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="selectedStructureId">
+      <h4>Professeurs</h4>
+      <ul>
+        <li *ngFor="let professeur of professeurs">
+          {{ professeur.name }}
+        </li>
+      </ul>
+    </div>
+  </div> -->
+
+  <mat-card class="w-100">
+    <mat-card-content>
+      <h4 class="mb-56">Les établissements</h4>
+      <button (click)="isModalOpen = true" class="btn btn-primary">Add Etablissement</button>
+
+      <label for="etablissementSelect">Select an Établissement:</label>
+      <select id="etablissementSelect" class="form-control" (change)="onEtablissementSelect($event)">
+        <option value="">-- Select an Établissement --</option>
+        <option *ngFor="let etab of etablissements" [value]="etab.idEtablissement">{{ etab.nomEtablissement }}</option>
+      </select>
+    </mat-card-content>
+
+    <mat-card-content>
+      <div class="form-group">
+        <div *ngIf="structures.length > 0">
+          <h3>Structures de Recherche:</h3>
+          <button (click)="isStrModalOpen = true" class="btn btn-primary">Ajouter Structure</button>
+
+          <div *ngFor="let structure of structures">
+            <div class="form-group">
+              <label for="structureSelect-{{ structure.idSTr }}">Select Structure: {{ structure.nom }}</label>
+              <select id="structureSelect-{{ structure.idSTr }}" class="form-control" (change)="onStructureSelect(structure.idSTr)">
+                <option value="">-- Select Structure --</option>
+                <option [value]="structure.idSTr">{{ structure.nom }}</option>
+              </select>
+
+              <div *ngIf="selectedProfessors[structure.idSTr]">
+                <h4>Professors in {{ structure.nom }}:</h4>
+                <button (click)="isProfModalOpen = true" class="btn btn-primary">Add Professeur</button>
+
+                <div *ngIf="selectedProfessors[structure.idSTr]!.length > 0; else noProfessors">
+                  <table class="table table-striped mt-3">
+                    <thead>
+                      <tr>
+                        <th>Adresse</th>
+                        <th>Other Info</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let prof of selectedProfessors[structure.idSTr]">
+                        <td>{{ prof.adresse }}</td>
+                        <td>{{ prof.otherInfo }}</td> 
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <ng-template #noProfessors>
+                  <p>No professors available</p>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+
+
+
+
+
+
+<!--
+
+  <div class="form-group">
+    <label for="etablissementSelect">Select an Établissement:</label>
+    <select id="etablissementSelect" class="form-control" (change)="onEtablissementSelect($event)">
+      <option value="">-- Select an Établissement --</option>
+      <option *ngFor="let etab of etablissements" [value]="etab.idEtablissement">{{ etab.nomEtablissement }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="structures.length > 0">
+    <h3>Structures de Recherche:</h3>
+    <div *ngFor="let structure of structures">
+      <div class="form-group">
+        <label for="structureSelect-{{ structure.idSTr }}">Select Structure: {{ structure.nom }}</label>
+        <select id="structureSelect-{{ structure.idSTr }}" class="form-control" (change)="onStructureSelect(structure.idSTr)">
+          <option value="">-- Select Structure --</option>
+          <option [value]="structure.idSTr">{{ structure.nom }}</option>
+        </select>
+
+        <div *ngIf="selectedProfessors[structure.idSTr]">
+          <h4>Professors in {{ structure.nom }}:</h4>
+          <ul *ngIf="selectedProfessors[structure.idSTr]!.length > 0; else noProfessors">
+            <li *ngFor="let prof of selectedProfessors[structure.idSTr]">{{ prof.idProfesseur }}</li>
+          </ul>
+          <ng-template #noProfessors>
+            <p>No professors available</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+
+
+<div class="container">
+  <!-- <button (click)="isModalOpen = true" class="btn btn-primary">Add Etablissement</button> -->
+
+  <div class="modal-overlay" tabindex="-1" role="dialog" [ngClass]="{'show': isModalOpen}" [ngStyle]="{'display': isModalOpen ? 'block' : 'none'}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ajouter Etablissement</h5>
+          <button type="button" class="close" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmit()" #etablissementForm="ngForm">
+            <div class="form-group">
+              <label for="nomEtablissement">Nom Etablissement</label>
+              <input type="text" id="nomEtablissement" class="form-control" [(ngModel)]="etablissement.nomEtablissement" name="nomEtablissement" required>
+            </div>
+            <div class="form-group">
+              <label for="adresseEtablissement">Adresse Etablissement</label>
+              <input type="text" id="adresseEtablissement" class="form-control" [(ngModel)]="etablissement.adresseEtablissement" name="adresseEtablissement" required>
+            </div>
+            <div class="form-group">
+              <label for="ville">Ville</label>
+              <input type="text" id="ville" class="form-control" [(ngModel)]="etablissement.ville" name="ville" required>
+            </div>
+
+            <div class="form-group">
+              <input type="number" id="idCED" hidden class="form-control" [(ngModel)]="idCED" name="idCED">
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div
+    class="modal-overlay"
+    tabindex="-1"
+    role="dialog"
+    [ngClass]="{'show': isStrModalOpen}"
+    [ngStyle]="{'display': isStrModalOpen ? 'block' : 'none'}"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ajouter Structure</h5>
+          <button type="button" class="close" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmit()" #strForm="ngForm">
+            <div class="form-group">
+              <label for="nomEtablissement">Nom Structure</label>
+              <input
+                type="text"
+                id="nomEtablissement"
+                class="form-control"
+                [(ngModel)]="structure.nom"
+                name="nomEtablissement"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="adresseEtablissement">Type Structure</label>
+              <input
+                type="text"
+                id="adresseEtablissement"
+                class="form-control"
+                [(ngModel)]="structure.typeStructure"
+                name="adresseEtablissement"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="idEtablissement">Établissement</label>
+              <select
+                id="idEtablissement"
+                class="form-control"
+                [(ngModel)]="selectedEtablissementId"
+                name="idEtablissement"
+                required
+              >
+                <option *ngFor="let etablissement of etablissements" [value]="etablissement.idEtablissement">
+                  {{ etablissement.nomEtablissement }}
+                </option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div
+    class="modal-overlay"
+    tabindex="-1"
+    role="dialog"
+    [ngClass]="{'show': isProfModalOpen}"
+    [ngStyle]="{'display': isProfModalOpen ? 'block' : 'none'}"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ajouter Professeur</h5>
+          <button type="button" class="close" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="onSubmit()" #professeurForm="ngForm">
+            <div class="d-flex">
+              <div class="form-group mr-5">
+                <label for="prenom">Prénom</label>
+                <input
+                  type="text"
+                  id="prenom"
+                  class="form-control"
+                  [(ngModel)]="professeur.prenom"
+                  name="prenom"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="nom">Nom</label>
+                <input
+                  type="text"
+                  id="nom"
+                  class="form-control"
+                  [(ngModel)]="professeur.nom"
+                  name="nom"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                [(ngModel)]="professeur.email"
+                name="email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Mot de Passe</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                [(ngModel)]="professeur.password"
+                name="password"
+                required
+              />
+            </div>
+            <div class="d-flex">
+            <div class="form-group">
+              <label for="tel">Téléphone</label>
+              <input
+                type="text"
+                id="tel"
+                class="form-control"
+                [(ngModel)]="professeur.tel"
+                name="tel"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="grade">Grade</label>
+              <input
+                type="text"
+                id="grade"
+                class="form-control"
+                [(ngModel)]="professeur.grade"
+                name="grade"
+                required
+              />
+            </div>
+          </div>
+
+            <div class="form-group">
+              <label for="adresse">Adresse</label>
+              <input
+                type="text"
+                id="adresse"
+                class="form-control"
+                [(ngModel)]="professeur.adresse"
+                name="adresse"
+                required
+              />
+            </div>
+
+
+            <!-- Dropdown for selecting Établissement -->
+            <div class="form-group">
+              <label for="idEtablissement">Établissement</label>
+              <select
+                id="idEtablissement"
+                class="form-control"
+                [(ngModel)]="selectedEtablissementId"
+                name="idEtablissement"
+                required
+              >
+                <option *ngFor="let etablissement of etablissements" [value]="etablissement.idEtablissement">
+                  {{ etablissement.nomEtablissement }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Dropdown for selecting Structure de Recherche -->
+            <div class="form-group">
+              <label for="idStructureRecherche">Structure de Recherche</label>
+              <select
+                id="idStructureRecherche"
+                class="form-control"
+                [(ngModel)]="selectedStructureId"
+                name="idStructureRecherche"
+                required
+              >
+                <option *ngFor="let structure of structures" [value]="structure.idSTr">
+                  {{ structure.nom }}
+                </option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -33,6 +33,9 @@ import { MesSujetsComponent } from './Users-dashboards/professeur/mes-sujets/mes
 import { MesPlanningsComponent } from './Users-dashboards/professeur/mes-plannings/mes-plannings.component';
 import { EntretiensComponent } from './Users-dashboards/professeur/entretiens/entretiens.component';
 import { MesDoctorantsComponent } from './Users-dashboards/professeur/mes-doctorants/mes-doctorants.component';
+import { StructureDeRechercheComponent } from './Users-dashboards/ced/structure-de-recherche/structure-de-recherche.component';
+import { CandidatProfilComponent } from './Users-dashboards/ced/candidat-profil/candidat-profil.component';
+import { FormaliteAdministrativeComponent } from './Users-dashboards/ced/formalite-administrative/formalite-administrative.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
@@ -68,8 +71,10 @@ const routes: Routes = [
       //dash CED
       {path:"users/ced", component:CEDComponent},
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
-      {path:"users/ced/preinscription", component:PreinscriptionComponent},
-      {path:"users/ced/preinscription", component:PreinscriptionComponent},
+      {path:"users/ced/structure", component:StructureDeRechercheComponent},
+      {path:"users/ced/candidat/:id", component:CandidatProfilComponent},
+      {path:"users/ced/formalite", component:FormaliteAdministrativeComponent},
+
 
 
 
