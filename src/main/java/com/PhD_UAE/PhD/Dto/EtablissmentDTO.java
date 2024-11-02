@@ -27,4 +27,6 @@ public class EtablissmentDTO {
         this.nomEtablissement = etablissement.getNomEtablissement();
         this.ville = etablissement.getVille();
     }
+
+
 }

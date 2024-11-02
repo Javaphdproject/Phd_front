@@ -64,7 +64,6 @@ public class CedService {
         return  dto;
     }
 
-
     @Transactional
     public void createProfesseur(ProfesseurDTO professeurDTO) {
         // Create and save User
@@ -77,7 +76,6 @@ public class CedService {
         user.setUserType(professeurDTO.getUserType());
 
         User savedUser = UserRepository.save(user);
-
         // Create and save Professeur
         Professeur professeur = new Professeur();
         professeur.setAdresse(professeurDTO.getAdresse());

@@ -9,4 +9,5 @@ public class RendezVousDTO {
     private LocalDate dateRendezvous;
     private String etatRendezVous;
     private int idCandidate;
+
 }

@@ -15,4 +15,5 @@ public class CedDTO {
         this.idUser = ced.getUser().getIdUser();
     }
 
+
 }

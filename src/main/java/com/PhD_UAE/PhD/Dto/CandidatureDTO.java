@@ -19,4 +19,5 @@ public class CandidatureDTO {
         this.idCandidat = candidature.getCandidate().getIdCandidate();
         this.idsujet = candidature.getSujet().getIdSujet();
     }
+
 }

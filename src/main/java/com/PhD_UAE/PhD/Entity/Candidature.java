@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+
 @Data
 @Getter
 @Setter
@@ -19,15 +20,15 @@ public class Candidature {
 
     @OneToOne
     @JoinColumn(name = "idCandidate", referencedColumnName = "idCandidate")
-    private Candidat candidate; // Change this line to use Candidate entity
+    private Candidat candidate; // A single candidate for this candidature
 
     @OneToOne
     @JoinColumn(name = "idSujet", referencedColumnName = "idSujet")
-    private Sujet sujet; // Change this line to use Candidate entity
+    private Sujet sujet; // A single subject for this candidature
 
-    // Update the mapping here
-    @OneToMany(mappedBy = "candidature")
-    private List<Candidat> candidats;
+    // Remove this if Candidature is not intended to have multiple candidates
+    // @OneToMany(mappedBy = "candidature")
+    // private List<Candidat> candidats;
 
     public Candidature() {}
 }

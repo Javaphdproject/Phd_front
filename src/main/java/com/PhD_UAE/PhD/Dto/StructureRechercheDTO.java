@@ -17,4 +17,5 @@ public class StructureRechercheDTO {
         this.idEtablissement = structureRecherche.getEtablissement().getIdEtablissement();
 
     }
+
 }

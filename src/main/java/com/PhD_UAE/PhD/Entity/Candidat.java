@@ -8,10 +8,10 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 
-@Entity
 @Data
 @Getter
 @Setter
+@Entity
 public class Candidat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,6 @@ public class Candidat {
     @OneToOne
     @JoinColumn(name = "idUser", referencedColumnName = "idUser", nullable = false)
     private User user;
-
 
     private Date dateNaissance;
     private String adresse;
@@ -32,7 +31,12 @@ public class Candidat {
     private String etablissementPrecedent;
     private boolean fonctionnaire;
 
-    // Relations
+    // Add this back to relate the candidate to a candidature
+    @ManyToOne
+    @JoinColumn(name = "id_candidature")
+    private Candidature candidature; // Associate this candidate with a candidature
+
+    // Relationships
     @OneToMany(mappedBy = "candidat")
     private List<Entretien> entretiens;
 
@@ -44,15 +48,10 @@ public class Candidat {
 
     @ManyToMany
     @JoinTable(
-            name = "Candidature",
+            name = "Candidature_Sujet", // Rename this table to avoid confusion
             joinColumns = @JoinColumn(name = "candidate_id"),
             inverseJoinColumns = @JoinColumn(name = "sujet_id"))
     private List<Sujet> sujets;
-
-    // Add a reference to Candidature
-    @ManyToOne
-    @JoinColumn(name = "id_candidature")
-    private Candidature candidature;
 
     public Candidat() {}
 }
