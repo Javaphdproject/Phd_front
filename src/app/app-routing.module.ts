@@ -36,6 +36,7 @@ import { MesDoctorantsComponent } from './Users-dashboards/professeur/mes-doctor
 import { StructureDeRechercheComponent } from './Users-dashboards/ced/structure-de-recherche/structure-de-recherche.component';
 import { CandidatProfilComponent } from './Users-dashboards/ced/candidat-profil/candidat-profil.component';
 import { FormaliteAdministrativeComponent } from './Users-dashboards/ced/formalite-administrative/formalite-administrative.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 const routes: Routes = [
@@ -90,10 +91,10 @@ const routes: Routes = [
       {path:"users/professeur/MesSujets", component:MesSujetsComponent},
       {path:"users/professeur/MesPlannings", component:MesPlanningsComponent},
       {path:"users/professeur/entretiens", component:EntretiensComponent},
-      {path:"users/professeur/MesDoctorants", component:MesDoctorantsComponent}
+      {path:"users/professeur/MesDoctorants", component:MesDoctorantsComponent},
 
 
-
+{path:"edit", component: EditProfileComponent},
 
     ]
   },

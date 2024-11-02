@@ -7,6 +7,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Route, Router, RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,7 @@ import { Route, Router, RouterModule } from '@angular/router';
 export class LoginComponent {
 email : string = '';
 password : string = '';
-  constructor(private http : HttpClient, private router : Router) { }
+  constructor(private http : HttpClient, private router : Router, private auth : AuthService) { }
 
   ngOnInit(): void {
   }
@@ -46,7 +47,8 @@ console.log(parsedResponse);
 console.log(response);
         if (parsedResponse.status === 'success') {
           const role = parsedResponse.role;
-console.log(role);
+          this.auth.setUserId(parsedResponse.idUser); 
+          console.log(role);
           // Navigate based on role
           if (role === 'CANDIDAT') {
             this.router.navigate(['/users/candidate']);
