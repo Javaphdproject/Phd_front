@@ -33,6 +33,8 @@ import { MesSujetsComponent } from './Users-dashboards/professeur/mes-sujets/mes
 import { MesPlanningsComponent } from './Users-dashboards/professeur/mes-plannings/mes-plannings.component';
 import { EntretiensComponent } from './Users-dashboards/professeur/entretiens/entretiens.component';
 import { MesDoctorantsComponent } from './Users-dashboards/professeur/mes-doctorants/mes-doctorants.component';
+import { CreatePlanningComponent } from './create-planning/create-planning.component';
+import { DisplayPlanningComponent } from './display-planning/display-planning.component';
 
 
 const routes: Routes = [
@@ -69,7 +71,8 @@ const routes: Routes = [
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
-
+      { path: "create-planning", component: CreatePlanningComponent },
+       { path: "display-planning", component: DisplayPlanningComponent },
 
 
       //dash candidate

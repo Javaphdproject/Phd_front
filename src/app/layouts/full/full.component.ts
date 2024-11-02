@@ -232,6 +232,11 @@ export class FullComponent {
               icon: "layers",
               menu: "Slide Toggle",
             },
+            {
+              link:"/create-planning",
+              icon:"layers",
+              menu:"planning"
+            },
       ];
     }
   }

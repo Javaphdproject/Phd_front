@@ -1,0 +1,33 @@
+<div>
+  <h2>Planning Entries</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Academic Year</th>
+        <th>Reinscription Date</th>
+        <th>Submission Date</th>
+        <th>Subject Proposal Date</th>
+        <th>Subject Validation Date</th>
+        <th>Student Convocation Date</th>
+        <th>Results Display Date</th>
+        <th>Registration Date</th>
+        <th>CED ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let planning of plannings">
+        <td>{{ planning.titre }}</td>
+        <td>{{ planning.anneeUniversitaire }}</td>
+        <td>{{ planning.dateReinscription | date }}</td>
+        <td>{{ planning.dateDepotDossier | date }}</td>
+        <td>{{ planning.datePropositionSujets | date }}</td>
+        <td>{{ planning.dateValidationSujets | date }}</td>
+        <td>{{ planning.dateConvocationEtudiants | date }}</td>
+        <td>{{ planning.dateAffichageResultats | date }}</td>
+        <td>{{ planning.dateInscription | date }}</td>
+        <td>{{ planning.cedId }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

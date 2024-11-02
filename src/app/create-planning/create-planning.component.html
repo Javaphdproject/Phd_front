@@ -1,0 +1,36 @@
+<div>
+  <h2>Create Planning</h2>
+  <form (ngSubmit)="createPlanning()" #planningForm="ngForm">
+    <label for="titre">Title:</label>
+    <input type="text" [(ngModel)]="planning.titre" name="titre" required />
+
+    <label for="anneeUniversitaire">Academic Year:</label>
+    <input type="text" [(ngModel)]="planning.anneeUniversitaire" name="anneeUniversitaire" required />
+
+    <label for="dateReinscription">Reinscription Date:</label>
+    <input type="date" [(ngModel)]="planning.dateReinscription" name="dateReinscription" required />
+
+    <label for="dateDepotDossier">Submission Date:</label>
+    <input type="date" [(ngModel)]="planning.dateDepotDossier" name="dateDepotDossier" required />
+
+    <label for="datePropositionSujets">Subject Proposal Date:</label>
+    <input type="date" [(ngModel)]="planning.datePropositionSujets" name="datePropositionSujets" required />
+
+    <label for="dateValidationSujets">Subject Validation Date:</label>
+    <input type="date" [(ngModel)]="planning.dateValidationSujets" name="dateValidationSujets" required />
+
+    <label for="dateConvocationEtudiants">Student Convocation Date:</label>
+    <input type="date" [(ngModel)]="planning.dateConvocationEtudiants" name="dateConvocationEtudiants" required />
+
+    <label for="dateAffichageResultats">Results Display Date:</label>
+    <input type="date" [(ngModel)]="planning.dateAffichageResultats" name="dateAffichageResultats" required />
+
+    <label for="dateInscription">Registration Date:</label>
+    <input type="date" [(ngModel)]="planning.dateInscription" name="dateInscription" required />
+
+    <label for="cedId">CED ID:</label>
+    <input type="number" [(ngModel)]="planning.cedId" name="cedId" required />
+
+    <button type="submit" [disabled]="planningForm.invalid">Create Planning</button>
+  </form>
+</div>
