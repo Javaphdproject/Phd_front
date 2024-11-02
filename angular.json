@@ -35,9 +35,13 @@
             "styles": [
               "src/assets/styles/layouts/_auth.scss",
               "src/assets/styles/style.scss",
-              "src/styles.scss"
+              "src/assets/stylesCandidat.css"
+
             ],
-            "scripts": []
+          "scripts": [
+        
+
+          ]
           },
           "configurations": {
             "production": {

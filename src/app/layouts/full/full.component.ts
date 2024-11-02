@@ -61,7 +61,7 @@ export class FullComponent {
           menu: "Dashboard ced",
         },
         {
-          link: "/alerts",
+          link: "/users/ced/structure",
           icon: "file-text",
           menu: "Structures de Recherche", // section pour voir les sturctures de recherche et les sujts par etablissment
         },
@@ -76,7 +76,7 @@ export class FullComponent {
           menu: "Liste des convoqués", // liste des candidats convoqués
         },
         {
-          link: "/expansion",
+          link: "/users/ced/formalite",
           icon: "divide-circle",
           menu: "Formalités administratives", // les formalités administratives
         },
