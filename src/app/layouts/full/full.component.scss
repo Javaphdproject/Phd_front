@@ -15,3 +15,11 @@
   top: 0;
   z-index: 1;
 }
+
+a {
+  color: black; // Set the text color to black
+  text-decoration: none; // Optional: remove underline from links
+}
+.mat-drawer.mat-drawer-side {
+  z-index: 1;
+}

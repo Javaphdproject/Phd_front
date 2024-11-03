@@ -14,9 +14,9 @@ import { Router } from '@angular/router';
   templateUrl: './forms.component.html',
 })
 export class FormsComponent implements OnInit {
-  
+
   checked = true;
-  
+
   constructor(private _router: Router,) { }
 
   ngOnInit(): void {}
@@ -25,3 +25,4 @@ export class FormsComponent implements OnInit {
     this._router.navigate(['/flexy/home']);
   }
 }
+

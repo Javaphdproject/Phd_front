@@ -71,16 +71,19 @@
         </button>
         <mat-menu #menu="matMenu" class="profile-dropdown">
           <div class="p-16 mb-4">
-            <button mat-menu-item class="fs-16">Edit Profile</button>
+            <button mat-menu-item class="fs-16" (click)="goToEditProfile()">Edit Profile</button>
             <button mat-menu-item class="fs-16">Account</button>
-            <button mat-menu-item class="fs-16">Change Password</button>
             <button mat-menu-item class="fs-16">My Settings</button>
           </div>
 
           <hr>
 
           <div class="p-16">
+<<<<<<< HEAD
             <button mat-flat-button color="accent" class="w-100 text-white" (click)="logout()">Logout</button>
+=======
+            <button mat-flat-button color="accent" class="w-100 text-white" (click)=" logout()">Logout</button>
+>>>>>>> 3c9b79b098fc676b08746beeff362620fac12c26
           </div>
 
 

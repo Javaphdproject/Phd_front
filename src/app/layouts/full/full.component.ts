@@ -39,7 +39,6 @@ export class FullComponent {
     constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          // Define the routes where you want to hide the sidebar
           const noSidebarRoutes = ['/login', '/register'];
           this.hideComponenets = noSidebarRoutes.includes(event.urlAfterRedirects);
 
@@ -61,7 +60,7 @@ export class FullComponent {
           menu: "Dashboard ced",
         },
         {
-          link: "/alerts",
+          link: "/users/ced/structure",
           icon: "file-text",
           menu: "Structures de Recherche", // section pour voir les sturctures de recherche et les sujts par etablissment
         },
@@ -81,7 +80,7 @@ export class FullComponent {
           menu: "Liste des convoqués", // liste des candidats convoqués
         },
         {
-          link: "/expansion",
+          link: "/users/ced/formalite",
           icon: "divide-circle",
           menu: "Formalités administratives", // les formalités administratives
         },
@@ -90,6 +89,8 @@ export class FullComponent {
           icon: "layers",
           menu: "Les bourses",
         },
+       
+
       ];
     }
     else if (this.user == role.candidate) {
@@ -240,8 +241,15 @@ export class FullComponent {
       ];
     }
   }
-
+  logout() {
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login']);
+  }
+  goToEditProfile(): void {
+    this.router.navigate(['/edit']); // Navigate to EditProfileComponent
+  }
   sidebarMenu: sidebarMenu[] = [];
+<<<<<<< HEAD
 
   // sidebarMenu: sidebarMenu[] = [
   //   {
@@ -340,3 +348,6 @@ export class FullComponent {
     this.router.navigate(['/login']);
   }
 }
+=======
+}
+>>>>>>> 3c9b79b098fc676b08746beeff362620fac12c26

@@ -33,8 +33,15 @@ import { MesSujetsComponent } from './Users-dashboards/professeur/mes-sujets/mes
 import { MesPlanningsComponent } from './Users-dashboards/professeur/mes-plannings/mes-plannings.component';
 import { EntretiensComponent } from './Users-dashboards/professeur/entretiens/entretiens.component';
 import { MesDoctorantsComponent } from './Users-dashboards/professeur/mes-doctorants/mes-doctorants.component';
+<<<<<<< HEAD
 import { CreatePlanningComponent } from './create-planning/create-planning.component';
 import { DisplayPlanningComponent } from './display-planning/display-planning.component';
+=======
+import { StructureDeRechercheComponent } from './Users-dashboards/ced/structure-de-recherche/structure-de-recherche.component';
+import { CandidatProfilComponent } from './Users-dashboards/ced/candidat-profil/candidat-profil.component';
+import { FormaliteAdministrativeComponent } from './Users-dashboards/ced/formalite-administrative/formalite-administrative.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+>>>>>>> 3c9b79b098fc676b08746beeff362620fac12c26
 
 
 const routes: Routes = [
@@ -69,10 +76,18 @@ const routes: Routes = [
       //dash CED
       {path:"users/ced", component:CEDComponent},
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
+<<<<<<< HEAD
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
       { path: "create-planning", component: CreatePlanningComponent },
       { path: "display-planning", component: DisplayPlanningComponent },
+=======
+      {path:"users/ced/structure", component:StructureDeRechercheComponent},
+      {path:"users/ced/candidat/:id", component:CandidatProfilComponent},
+      {path:"users/ced/formalite", component:FormaliteAdministrativeComponent},
+
+
+>>>>>>> 3c9b79b098fc676b08746beeff362620fac12c26
 
 
       //dash candidate
@@ -88,10 +103,10 @@ const routes: Routes = [
       {path:"users/professeur/MesSujets", component:MesSujetsComponent},
       {path:"users/professeur/MesPlannings", component:MesPlanningsComponent},
       {path:"users/professeur/entretiens", component:EntretiensComponent},
-      {path:"users/professeur/MesDoctorants", component:MesDoctorantsComponent}
+      {path:"users/professeur/MesDoctorants", component:MesDoctorantsComponent},
 
 
-
+{path:"edit", component: EditProfileComponent},
 
     ]
   },
