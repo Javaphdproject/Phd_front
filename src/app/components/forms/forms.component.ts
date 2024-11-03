@@ -22,7 +22,7 @@ export class FormsComponent implements OnInit {
   ngOnInit(): void {}
 
   onBack(): void {
-    this._router.navigate(['/flexy/home']);
+    this._router.navigate(['/flexy/acceuil']);
   }
 }
 

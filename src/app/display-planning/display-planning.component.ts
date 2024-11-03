@@ -3,6 +3,7 @@ import { PlanningService } from '../planning.service';
 import { PlanningPreincriptionDTO } from '../planning-preinscription.dto';
 import { CalendarMonthViewDay } from 'angular-calendar';
 import { isSameDay } from 'date-fns';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-planning',
@@ -14,6 +15,7 @@ export class DisplayPlanningComponent implements OnInit {
   isLoading: boolean = true;
   viewDate: Date = new Date();
   events: any[] = [];
+  router: any;
 
   constructor(private planningService: PlanningService) {}
 
@@ -41,5 +43,17 @@ export class DisplayPlanningComponent implements OnInit {
     if (clickedEvents.length > 0) {
       console.log(clickedEvents); // Afficher les événements de ce jour
     }
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/register']);
+  }
+
+  navigateToDisplayPlanning() {
+    this.router.navigate(['/display-planning']);
   }
 }

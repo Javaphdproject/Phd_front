@@ -25,9 +25,7 @@ const role = {
 export class FullComponent {
 //le role pour afficher dash convenable
   user: string = "";
-
   search: boolean = false;
-
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -39,7 +37,7 @@ export class FullComponent {
     constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          const noSidebarRoutes = ['/login', '/register'];
+          const noSidebarRoutes = ['/login', '/register', '/acceuil', '/display-planning'];
           this.hideComponenets = noSidebarRoutes.includes(event.urlAfterRedirects);
 
           this.user = this.router.url;
@@ -89,8 +87,6 @@ export class FullComponent {
           icon: "layers",
           menu: "Les bourses",
         },
-       
-
       ];
     }
     else if (this.user == role.candidate) {
@@ -154,7 +150,7 @@ export class FullComponent {
     else  {
       this.sidebarMenu = [
         {
-              link: "/home",
+              link: "/acceuil",
               icon: "home",
               menu: "Dashboard",
             },
@@ -249,7 +245,6 @@ export class FullComponent {
     this.router.navigate(['/edit']); // Navigate to EditProfileComponent
   }
   sidebarMenu: sidebarMenu[] = [];
-<<<<<<< HEAD
 
   // sidebarMenu: sidebarMenu[] = [
   //   {
@@ -339,15 +334,4 @@ export class FullComponent {
   //   },
   // ]
 
-  logout() {
-    // Clear any stored session data (like tokens)
-    localStorage.clear();
-    sessionStorage.clear();
-
-    // Navigate to the login page
-    this.router.navigate(['/login']);
-  }
 }
-=======
-}
->>>>>>> 3c9b79b098fc676b08746beeff362620fac12c26

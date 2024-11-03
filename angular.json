@@ -35,13 +35,22 @@
             "styles": [
               "src/assets/styles/layouts/_auth.scss",
               "src/assets/styles/style.scss",
-              "src/assets/stylesCandidat.css"
+              "src/assets/stylesCandidat.css",
+              "src/styles.scss",
+  "node_modules/bootstrap/dist/css/bootstrap.min.css"
 
             ],
-          "scripts": [
-        
+         "scripts": [
+    "node_modules/jquery/dist/jquery.min.js",
+    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+    "src/lib/wow/wow.min.js",
+    "src/lib/easing/easing.min.js",
+    "src/lib/waypoints/waypoints.min.js",
+    "src/lib/owlcarousel/owl.carousel.min.js",
+    "src/js/main.js",
+    "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+]
 
-          ]
           },
           "configurations": {
             "production": {
