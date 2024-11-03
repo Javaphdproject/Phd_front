@@ -72,7 +72,7 @@ const routes: Routes = [
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
       { path: "create-planning", component: CreatePlanningComponent },
-       { path: "display-planning", component: DisplayPlanningComponent },
+      { path: "display-planning", component: DisplayPlanningComponent },
 
 
       //dash candidate

@@ -1,13 +1,17 @@
+// src/app/create-planning/create-planning.component.ts
+
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { PlanningService } from '../planning.service';
 import { PlanningPreincriptionDTO } from '../planning-preinscription.dto';
 
 @Component({
   selector: 'app-create-planning',
   templateUrl: './create-planning.component.html',
-  styleUrls: ['./create-planning.component.scss'] // Ensure this path is correct
+  styleUrls: ['./create-planning.component.scss']
 })
 export class CreatePlanningComponent {
+
   planning: PlanningPreincriptionDTO = {
     anneeUniversitaire: '',
     titre: '',
@@ -18,15 +22,16 @@ export class CreatePlanningComponent {
     dateConvocationEtudiants: new Date(),
     dateAffichageResultats: new Date(),
     dateInscription: new Date(),
-    cedId: null
+    cedId: null // Assuming cedId is handled in the service or determined elsewhere
   };
 
-  constructor(private planningService: PlanningService) {}
+  constructor(public planningService: PlanningService, public router: Router) {}
 
   createPlanning() {
     this.planningService.createPlanning(this.planning).subscribe(response => {
       console.log('Planning created:', response);
       alert('Planning created successfully!');
+      this.router.navigate(['/display-planning']);
     }, error => {
       console.error('Error creating planning:', error);
       alert('Failed to create planning.');

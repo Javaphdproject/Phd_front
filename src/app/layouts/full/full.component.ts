@@ -10,7 +10,7 @@ interface sidebarMenu {
   icon: string;
   menu: string;
 }
-const roles = {
+const role = {
   ced: '/users/ced',
   candidate: '/users/candidate',
   professeur: '/users/professeur'
@@ -53,7 +53,7 @@ export class FullComponent {
   routerActive: string = "activelink";
 
   ngOnInit() {
-    if (this.user == roles.ced) {
+    if (this.user == role.ced) {
       this.sidebarMenu = [
         {
           link: "/users/ced",
@@ -69,6 +69,11 @@ export class FullComponent {
           link: "/users/ced/preinscription",
           icon: "layout",
           menu: "Les préinscriptions", // le statut de chaque préinscription
+        },
+        {
+          link: "/create-planning",
+          icon: "layout",
+          menu: "Planification Preinscription", // le statut de chaque préinscription
         },
         {
           link: "/menu",
@@ -87,7 +92,7 @@ export class FullComponent {
         },
       ];
     }
-    else if (this.user == roles.candidate) {
+    else if (this.user == role.candidate) {
       this.sidebarMenu = [
         {
           link: "/users/candidate",
@@ -116,7 +121,7 @@ export class FullComponent {
         },
       ];
     }
-    else if (this.user == roles.professeur) {
+    else if (this.user == role.professeur) {
       this.sidebarMenu = [
         {
           link: "/users/professeur",
@@ -231,12 +236,7 @@ export class FullComponent {
               link: "/slide-toggle",
               icon: "layers",
               menu: "Slide Toggle",
-            },
-            {
-              link:"/create-planning",
-              icon:"layers",
-              menu:"planning"
-            },
+            }
       ];
     }
   }

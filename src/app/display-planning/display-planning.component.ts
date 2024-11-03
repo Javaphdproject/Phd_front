@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { PlanningService } from '../planning.service';
 import { PlanningPreincriptionDTO } from '../planning-preinscription.dto';
+import { CalendarMonthViewDay } from 'angular-calendar';
+import { isSameDay } from 'date-fns';
 
 @Component({
   selector: 'app-display-planning',
   templateUrl: './display-planning.component.html',
-  styleUrls: ['./display-planning.component.scss'] // Ensure this path is correct
+  styleUrls: ['./display-planning.component.scss']
 })
 export class DisplayPlanningComponent implements OnInit {
   plannings: PlanningPreincriptionDTO[] = [];
+  isLoading: boolean = true;
+  viewDate: Date = new Date();
+  events: any[] = [];
 
   constructor(private planningService: PlanningService) {}
 
@@ -19,8 +24,22 @@ export class DisplayPlanningComponent implements OnInit {
   getAllPlannings() {
     this.planningService.getAllPlannings().subscribe(data => {
       this.plannings = data;
+      this.events = this.plannings.map(planning => ({
+        start: new Date(planning.dateReinscription),
+        title: planning.titre,
+        meta: planning
+      }));
+      this.isLoading = false;
     }, error => {
       console.error('Error fetching plannings:', error);
+      this.isLoading = false;
     });
+  }
+
+  dayClicked(day: CalendarMonthViewDay) {
+    const clickedEvents = this.events.filter(event => isSameDay(event.start, day.date));
+    if (clickedEvents.length > 0) {
+      console.log(clickedEvents); // Afficher les événements de ce jour
+    }
   }
 }

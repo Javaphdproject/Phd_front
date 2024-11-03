@@ -50,7 +50,7 @@ signup() {
       "tel": this.tel,
       "userType": this.usertype
   };
-  this.http.post('http://localhost:8089/phd/auth/register', body, { responseType: 'text' })
+  this.http.post('http://localhost:8089/phd/auth/users/register', body, { responseType: 'text' })
   .subscribe((response: any) => {
       alert(response);
       this.router.navigate(['/login']);

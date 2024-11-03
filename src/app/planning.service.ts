@@ -1,5 +1,7 @@
+// src/app/planning.service.ts
+
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PlanningPreincriptionDTO } from './planning-preinscription.dto';
 
@@ -11,8 +13,11 @@ export class PlanningService {
 
   constructor(private http: HttpClient) {}
 
-  createPlanning(planningDTO: PlanningPreincriptionDTO): Observable<PlanningPreincriptionDTO> {
-    return this.http.post<PlanningPreincriptionDTO>(`${this.apiUrl}/create`, planningDTO);
+  createPlanning(planning: PlanningPreincriptionDTO): Observable<any> {
+    const token = localStorage.getItem('authToken'); // Retrieve JWT token
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post(`${this.apiUrl}/create`, planning, { headers });
   }
 
   getAllPlannings(): Observable<PlanningPreincriptionDTO[]> {

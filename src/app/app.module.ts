@@ -4,6 +4,7 @@ import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router'; // Import RouterModule
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import { DisplayPlanningComponent } from './display-planning/display-planning.co
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    RouterModule,  // Ensure RouterModule is added
     FeatherModule.pick(allIcons),
     DemoFlexyModule,
     DashboardModule,
