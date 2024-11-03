@@ -81,7 +81,7 @@ export class FullComponent {
           menu: "Formalités administratives", // les formalités administratives
         },
         {
-          link: "/slider",
+          link: "/users/ced/bourse",
           icon: "layers",
           menu: "Les bourses",
         },

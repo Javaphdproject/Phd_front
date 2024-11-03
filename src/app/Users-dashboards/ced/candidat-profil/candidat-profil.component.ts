@@ -99,7 +99,7 @@ candidat = {
   fetchCandidat(id: number): void {
     this.cedService.getCandidatById(id).subscribe(
       (candidat: any) => {
-        // this.candidat = candidat;
+        this.candidat = candidat;
         console.log(this.candidat)
         this.fetchCandidatPhoto(this.candidat.photo);
 
