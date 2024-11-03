@@ -22,7 +22,7 @@ export interface CandidatEntretienDTO {
   date: string;
   resultat: string;
   status: string;
-  idCandidat: number;
+  idCandidate: number;
   rendezVousDate :string;
 }
 
@@ -60,12 +60,14 @@ export interface candidature {
 })
 export class FormaliteAdministrativeComponent {
   acceptedCandidates: CandidatEntretienDTO[] = [];
+  dateRendezvous!: Date;
+  selectedCandidateId!: number;
   constructor(private cedService: CedService, private http: HttpClient, private router :Router) {}
 
 
-  isStrModalOpen = false; // Modal state
-  dateEntretien: string =''; // To hold the input date
-  currentEntretienId: number =0; // To hold the ID of the current entretien
+  isStrModalOpen = false;
+  dateEntretien: string ='';
+  currentidCandidate: number =0;
 
 
   ngOnInit(): void {
@@ -104,9 +106,11 @@ export class FormaliteAdministrativeComponent {
     this.cedService.getAcceptedCandidates().subscribe(
       (data: CandidatEntretienDTO[]) => {
         this.acceptedCandidates = data;
+        console.log(this.acceptedCandidates);
+
         // Fetch rendezvous for each entretien
         this.acceptedCandidates.forEach(candidate => {
-          this.fetchRendezVous(candidate.idEntretien);
+          // this.fetchRendezVous(candidate.idEntretien);
         });
         console.log(this.acceptedCandidates);
       },
@@ -115,15 +119,13 @@ export class FormaliteAdministrativeComponent {
       }
     );
   }
-  
-  // Method to fetch rendezvous for a specific entretien
+
   fetchRendezVous(idEntretien: number): void {
     this.cedService.getRendezVousForEntretien(idEntretien).subscribe(
       (rendezVousDate: string) => {
-        // Assuming the rendezVousDate is in the format you need
         const candidate = this.acceptedCandidates.find(c => c.idEntretien === idEntretien);
         if (candidate) {
-          candidate.rendezVousDate = rendezVousDate; // Add rendezvous date to candidate
+          candidate.rendezVousDate = rendezVousDate;
         }
       },
       (error) => {
@@ -131,31 +133,180 @@ export class FormaliteAdministrativeComponent {
       }
     );
   }
-  
 
-  viewDetails(idEntretien: number): void {
-    console.log('Viewing details for candidate with interview ID:', idEntretien);
+
+  // viewDetails(idEntretien: number): void {
+  //   console.log('Viewing details for candidate with interview ID:', idEntretien);
+  // }
+  viewDetails(candidateId: number): void {
+    console.log("Viewing details for candidate with ID:", candidateId);
+    this.router.navigate(['/users/ced/candidat', candidateId]);
   }
 
-  openModal(idEntretien: number): void {
-    this.currentEntretienId = idEntretien; // Store the current entretien ID
+
+  openModal(idCandidate: number): void {
+    this.currentidCandidate = idCandidate; // Store the current entretien ID
     this.isStrModalOpen = true; // Open the modal
   }
 
   close(): void {
-    this.isStrModalOpen = false; // Close the modal
-    this.dateEntretien = ''; // Reset the date input
+    this.isStrModalOpen = false;
+    this.dateEntretien = '';
   }
 
   onSubmit(): void {
-    console.log('Submitting date:', this.dateEntretien, 'for entretien ID:', this.currentEntretienId);
-    // Call your service to save the date here
-    // Example:
-    // this.cedService.addDateToEntretien(this.currentEntretienId, this.dateEntretien).subscribe(response => {
-    //   // Handle success
-    //   this.close(); // Close the modal after submission
-    // }, error => {
-    //   console.error('Error submitting date', error);
-    // });
+    console.log('Submitting date:', this.dateRendezvous, 'for entretien ID:', this.currentidCandidate);
+    this.cedService.addRendezVous(this.dateRendezvous ,'en-cours' ,1).subscribe(
+      (response: any) => {
+        console.log('Rendez-vous added successfully:', response);
+        // this.refreshAcceptedCandidates();
+        this.close();
+      },
+      ( error: any) => {
+        console.error('Error adding rendez-vous:', error);
+      }
+    );
   }
-}
+
+  }
+
+
+
+
+// import { CommonModule } from '@angular/common';
+// import { HttpClient } from '@angular/common/http';
+// import { Component } from '@angular/core';
+// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { MatButtonModule } from '@angular/material/button';
+// import { MatCardModule } from '@angular/material/card';
+// import { MatRippleModule } from '@angular/material/core';
+// import { MatTableModule } from '@angular/material/table';
+// import { Router, RouterModule } from '@angular/router';
+// import { FeatherModule } from 'angular-feather';
+// import { CedService } from 'src/app/service/ced.service';
+
+// export interface CandidatEntretienDTO {
+//   idEntretien: number;
+//   candidateName: string;
+//   candidatePrenom: string;
+//   date: string;
+//   resultat: string;
+//   status: string;
+//   idCandidate: number;
+//   rendezVousDate: string; // Field for rendez-vous date
+// }
+
+// @Component({
+//   selector: 'app-formalite-administrative',
+//   standalone: true,
+//   imports: [
+//     MatTableModule,
+//     RouterModule,
+//     FeatherModule,
+//     FormsModule,
+//     ReactiveFormsModule,
+//     MatButtonModule,
+//     MatCardModule,
+//     MatRippleModule,
+//     CommonModule
+//   ],
+//   templateUrl: './formalite-administrative.component.html',
+//   styleUrls: ['./formalite-administrative.component.scss']
+// })
+// export class FormaliteAdministrativeComponent {
+//   acceptedCandidates: CandidatEntretienDTO[] = [];
+//   dateRendezvous!: string; // Changed type to string for date input
+//   isStrModalOpen = false;
+//   currentidCandidate: number = 0;
+
+//   constructor(private cedService: CedService, private http: HttpClient, private router: Router) {}
+
+//   ngOnInit(): void {
+//     this.loadAcceptedCandidates();
+//   }
+
+//   loadAcceptedCandidates(): void {
+//     this.cedService.getAcceptedCandidates().subscribe(
+//       (data: CandidatEntretienDTO[]) => {
+//         this.acceptedCandidates = data;
+
+//         // Fetch rendezvous for each entretien
+//         this.acceptedCandidates.forEach(candidate => {
+//           this.fetchRendezVous(candidate.idEntretien);
+//         });
+//       },
+//       (error) => {
+//         console.error('Error fetching accepted candidates', error);
+//       }
+//     );
+//   }
+
+//   fetchRendezVous(idEntretien: number): void {
+//     this.cedService.getRendezVousForEntretien(idEntretien).subscribe(
+//       (rendezVousDate: string) => {
+//         const candidate = this.acceptedCandidates.find(c => c.idEntretien === idEntretien);
+//         if (candidate) {
+//           candidate.rendezVousDate = rendezVousDate;
+//         }
+//       },
+//       (error) => {
+//         console.error(`Error fetching rendezvous for entretien ${idEntretien}`, error);
+//       }
+//     );
+//   }
+
+//   viewDetails(candidateId: number): void {
+//     console.log("Viewing details for candidate with ID:", candidateId);
+//     this.router.navigate(['/users/ced/candidat', candidateId]);
+//   }
+
+//   openModal(idCandidate: number): void {
+//     this.currentidCandidate = idCandidate; // Store the current candidate ID
+//     this.isStrModalOpen = true; // Open the modal
+//   }
+
+//   close(): void {
+//     this.isStrModalOpen = false;
+//     this.dateRendezvous = '';
+//   }
+
+//   // onSubmit(): void {
+//   //   console.log('Submitting date:', this.dateRendezvous, 'for candidate ID:', this.currentidCandidate);
+//   //   this.cedService.addRendezVous(this.dateRendezvous, 'en-cours', this.currentidCandidate).subscribe(
+//   //     (response: any) => {
+//   //       console.log('Rendez-vous added successfully:', response);
+//   //       this.loadAcceptedCandidates(); // Reload accepted candidates after adding
+//   //       this.close();
+//   //     },
+//   //     (error: any) => {
+//   //       console.error('Error adding rendez-vous:', error);
+//   //     }
+//   //   );
+//   // }
+
+//   onSubmit(): void {
+//     console.log('Submitting date:', this.dateRendezvous, 'for candidate ID:', this.currentidCandidate);
+
+//     // Convert the string date to a Date object
+//     const dateObject = new Date(this.dateRendezvous);
+
+//     // Check if the date conversion is successful
+//     if (isNaN(dateObject.getTime())) {
+//       console.error('Invalid date format:', this.dateRendezvous);
+//       return; // Exit if the date is invalid
+//     }
+
+//     // Call the service method with the Date object
+//     this.cedService.addRendezVous(dateObject, 'en-cours', this.currentidCandidate).subscribe(
+//       (response: any) => {
+//         console.log('Rendez-vous added successfully:', response);
+//         this.loadAcceptedCandidates(); // Reload accepted candidates after adding
+//         this.close();
+//       },
+//       (error: any) => {
+//         console.error('Error adding rendez-vous:', error);
+//       }
+//     );
+//   }
+
+// }

@@ -31,6 +31,7 @@ export interface candidature {
   idCandidat: number;
   idsujet: number;
   candidatName: string;
+  candidatPrenom: string;
 
 }
 
@@ -129,13 +130,13 @@ export class PreinscriptionComponent {
 
   ngOnInit(): void {
     this.fetchAllCandidature();
-    this.candidatures = [
-      { idcandidature: 1, etatCandidature: 'Accepted', idCandidat: 101, idsujet: 201, candidatName: 'Alice Johnson' },
-      { idcandidature: 2, etatCandidature: '', idCandidat: 102, idsujet: 202, candidatName: 'Bob Smith' },
-      { idcandidature: 3, etatCandidature: 'Rejected', idCandidat: 103, idsujet: 203, candidatName: 'Charlie Brown' },
-      { idcandidature: 4, etatCandidature: 'Accepted', idCandidat: 104, idsujet: 204, candidatName: 'Diana Prince' },
-      { idcandidature: 5, etatCandidature: '', idCandidat: 105, idsujet: 205, candidatName: 'Ethan Hunt' }
-    ];
+    // this.candidatures = [
+    //   { idcandidature: 1, etatCandidature: 'Accepted', idCandidat: 101, idsujet: 201, candidatName: 'Alice Johnson', candidatPrenom: 'Alice' },
+    //   { idcandidature: 2, etatCandidature: '', idCandidat: 102, idsujet: 202, candidatName: 'Bob Smith' , candidatPrenom: 'Bob'},
+    //   { idcandidature: 3, etatCandidature: 'Rejected', idCandidat: 103, idsujet: 203, candidatName: 'Charlie Brown' , candidatPrenom: 'Charlie'},
+    //   { idcandidature: 4, etatCandidature: 'Accepted', idCandidat: 104, idsujet: 204, candidatName: 'Diana Prince' , candidatPrenom: 'Diana'},
+    //   { idcandidature: 5, etatCandidature: '', idCandidat: 105, idsujet: 205, candidatName: 'Ethan Hunt' , candidatPrenom: 'Ethan'}
+    // ];
   }
 
 
@@ -165,14 +166,33 @@ export class PreinscriptionComponent {
     );
   }
 
+  // fetchCandidatesForCandidatures(): void {
+  //   this.candidatures.forEach((candidature) => {
+  //     this.cedService.getCandidatById(candidature.idCandidat).subscribe(
+  //       (candidat: any) => {
+  //         console.log("Candidat fetched:", candidat);
+  //         // candidature.candidatName = candidat.name;
+  //         // console.log("id", candidature.idCandidat);
+  //         // console.log("nom", candidature.candidatName);
+  //       },
+  //       (error) => {
+  //         console.error(`Error fetching candidat with ID ${candidature.idCandidat}:`, error);
+  //       }
+  //     );
+  //   });
+  // }
+
+
   fetchCandidatesForCandidatures(): void {
     this.candidatures.forEach((candidature) => {
       this.cedService.getCandidatById(candidature.idCandidat).subscribe(
         (candidat: any) => {
           console.log("Candidat fetched:", candidat);
-          // candidature.candidatName = candidat.name;
-          // console.log("id", candidature.idCandidat);
-          // console.log("nom", candidature.candidatName);
+
+          candidature.candidatName = candidat.nom; // Update with actual property from API
+          candidature.candidatPrenom = candidat.prenom; // Update with actual property from API
+
+          console.log("Updated candidature:", candidature);
         },
         (error) => {
           console.error(`Error fetching candidat with ID ${candidature.idCandidat}:`, error);
@@ -192,24 +212,34 @@ export class PreinscriptionComponent {
 
 
   acceptCandidature(id: number): void {
-    this.cedService.updateCandidatureStatus(id, 'Accepted').subscribe(
+    this.cedService.updateCandidatureStatus(id, 'accepted').subscribe(
       (response) => {
         this.fetchAllCandidature();
+        this.fetchCandidatesForCandidatures();
       },
       (error) => {
         console.error('Error accepting candidature:', error);
       }
     );
+    setTimeout(() => {
+      window.location.reload();
+  }, 100);
   }
 
   refuseCandidature(id: number): void {
-    this.cedService.updateCandidatureStatus(id, 'Refused').subscribe(
+    this.cedService.updateCandidatureStatus(id, 'refused').subscribe(
       (response) => {
         this.fetchAllCandidature();
+        this.fetchCandidatesForCandidatures();
+        
       },
       (error) => {
         console.error('Error refusing candidature:', error);
       }
     );
+    setTimeout(() => {
+      window.location.reload();
+  }, 100);
   }
+
 }

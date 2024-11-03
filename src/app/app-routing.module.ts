@@ -38,6 +38,7 @@ import { DisplayPlanningComponent } from './display-planning/display-planning.co
 import { StructureDeRechercheComponent } from './Users-dashboards/ced/structure-de-recherche/structure-de-recherche.component';
 import { CandidatProfilComponent } from './Users-dashboards/ced/candidat-profil/candidat-profil.component';
 import { FormaliteAdministrativeComponent } from './Users-dashboards/ced/formalite-administrative/formalite-administrative.component';
+import { voirDemandeBourseComponent } from './Users-dashboards/ced/demande-bourse/demande-bourse.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 

@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';  // Import FormsModule
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs'; // Import MatTabsModule
+
 // etablissement.model.ts
 export class Etablissement {
   idEtablissement?: number;
@@ -13,19 +16,20 @@ export class Etablissement {
   adresseEtablissement: string;
   ville: string;
   idCED?: number;
+  structures: Structure[];
 
   constructor() {
     this.nomEtablissement = '';
     this.adresseEtablissement = '';
     this.ville = '';
     this.idCED = 0;
+    this.structures = [];
   }
 }
 export class Structure {
   typeStructure: string;
   nom: string;
   idEtablissement: number;
-
   constructor() {
     this.typeStructure = '';
     this.nom = '';
@@ -36,7 +40,7 @@ export class Professeur {
   prenom: string;
   nom: string;
   email: string;
-  password: string;
+  password: any;
   tel: string;
   adresse: string;
   grade: string;
@@ -58,11 +62,16 @@ export class Professeur {
 @Component({
   selector: 'app-structure-de-recherche',
   standalone: true,
-  imports: [HttpClientModule, CommonModule, FormsModule, MatCardModule, MatTableModule],
+  imports: [HttpClientModule, CommonModule, FormsModule, MatCardModule, MatTableModule,
+    MatCardModule, 
+    MatTabsModule
+  ],
   templateUrl: './structure-de-recherche.component.html',
   styleUrl: './structure-de-recherche.component.scss'
 })
 export class StructureDeRechercheComponent {
+[x: string]: any;
+displayedColumns: string[] = ['nomEtablissement', 'adresseEtablissement', 'ville', 'structures'];
 
   ceds : any[] = [];
   idCED =1;
@@ -72,7 +81,11 @@ export class StructureDeRechercheComponent {
   professeurs: any[] = [];
   selectedEtablissementId: number | null = null;
   selectedStructureId: number | null = null;
-  selectedProfessors: { [key: number]: any[] | null } = {};
+  // selectedProfessors: { [key: number]: any[] | null } = {};
+  selectedProfessors: { [key: number]: any[] } = {};
+
+
+
 
   constructor(private cedService: CedService, private http : HttpClient) {};
 
@@ -81,26 +94,96 @@ export class StructureDeRechercheComponent {
     // this.fetchAllEtablissements();
 
     this.loadEtablissements();
+    this.loadProfessors();
+
+  }
+
+  professors : any [] = [];
+  loadProfessors(): void {
+    this.cedService.getAllProfessors().subscribe(
+      (data) => {
+        this.professors = data;
+        console.log('prof ', this.professors)
+      },
+      (error) => {
+        console.error('Error fetching professors:', error);
+      }
+    );
   }
 
 
-  // loadEtablissements() {
-  //   const idCED = 1;
-  //   this.cedService.getAllEtablissements(idCED).subscribe(data => {
-  //     this.etablissements = data;
-  //     console.log('Etablissements:', this.etablissements);
-  //   });
+  isSubjectsModalOpen = false;
+  selectedProfessor: any; // Adjust type as needed
+  selectedSubjects: any[] = [];
+
+
+  // openSubjectsModal(professor: any) {
+  //   this.selectedProfessor = professor;
+
+  //   this.fetchSubjects(professor.idProfesseur);
+
+  //   this.isSubjectsModalOpen = true;
   // }
+
+  // fetchSubjects(professorId: number) {
+  //   this.selectedSubjects = [
+  //     { id: 1, name: 'Mathematics' },
+  //     { id: 2, name: 'Physics' }
+  //   ];
+  // }
+
+  openSubjectsModal(idProfesseur: number) {
+    this.selectedProfessor = idProfesseur;
+    console.log('Selected Professor ID:', idProfesseur);
+    // Fetch the subjects for the selected professor
+    this.cedService.getSubjectsByProfessorId(idProfesseur).subscribe(
+      (subjects) => {
+        this.selectedSubjects = subjects;
+        console.log('Subjects fetched:', this.selectedSubjects);
+        this.isSubjectsModalOpen = true; // Open the modal after fetching subjects
+      },
+      (error) => {
+        console.error('Error fetching subjects:', error);
+        this.selectedSubjects = []; // Clear subjects if there's an error
+      }
+    );
+  }
+  closeSubjectsModal() {
+    this.isSubjectsModalOpen = false;
+    this.selectedProfessor = null;
+    this.selectedSubjects = [];
+  }
+
+
+
 
 
 
   loadEtablissements(): void {
-    const idCED =1;
-    this.cedService.getAllEtablissements(idCED).subscribe(data => {
-      this.etablissements = data;
-      console.log( this.etablissements);
-    });
+    this.cedService.getAllEtablissementsWithStructures().subscribe(
+      (data) => {
+        this.etablissements = data;
+        console.log('Etablissements with structures:', this.etablissements);
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
   }
+  expandedIndex: number | null = null; // Tracks the currently expanded row
+
+  toggleDropdown(index: number): void {
+    this.expandedIndex = this.expandedIndex === index ? null : index;
+  }
+
+
+  // loadEtablissements(): void {
+  //   const idCED =1;
+  //   this.cedService.getAllEtablissements(idCED).subscribe(data => {
+  //     this.etablissements = data;
+  //     console.log( this.etablissements);
+  //   });
+  // }
 
   onEtablissementSelect(event: Event): void {
     const target = event.target as HTMLSelectElement;
@@ -116,61 +199,31 @@ export class StructureDeRechercheComponent {
       this.structures = [];
     }
   }
+  expandedEstablishments: Set<number> = new Set(); // To keep track of expanded establishments
 
+  isExpanded(id: number): boolean {
+    return this.expandedEstablishments.has(id);
+  }
+
+  // onStructureSelect(idStructure: number): void {
+  //   console.log('Selected structure:', idStructure);
+  //   this.selectedStructureId = idStructure;
+  //   this.cedService.getProfesseursByStructure(idStructure).subscribe(data => {
+  //     this.selectedProfessors[idStructure] = data.length > 0 ? data : null;
+  //     console.log(this.selectedProfessors);
+  //   });
+  // }
 
   onStructureSelect(idStructure: number): void {
     console.log('Selected structure:', idStructure);
     this.selectedStructureId = idStructure;
     this.cedService.getProfesseursByStructure(idStructure).subscribe(data => {
-      this.selectedProfessors[idStructure] = data.length > 0 ? data : null;
+      this.selectedProfessors[idStructure] = data.length > 0 ? data : [];
       console.log(this.selectedProfessors);
     });
   }
 
 
-
-
-  // onEtablissementSelect(idEtablissement: number) {
-  //   idEtablissement = 1;
-  //   console.log('Selected etablissement:', idEtablissement);
-  //   this.selectedEtablissementId = idEtablissement;
-  //   this.cedService.getStructuresByEtablissement(idEtablissement).subscribe(data => {
-  //     this.structures = data;
-  //     this.professeurs = []; // Clear previous professors
-  //     this.selectedStructureId = null; // Reset selected structure
-  //     console.log('Structures:', this.structures);
-  //   });
-  // }
-
-  // onStructureSelect(idStr: number) {
-  //   this.selectedStructureId = idStr;
-  //   this.cedService.getProfesseursByStructure(idStr).subscribe(data => {
-  //     this.professeurs = data;
-  //     console.log('Professeurs:', this.professeurs);
-  //   });
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // fetchAllCeds():void{
-  //   this.cedService.getAllCed()
-  //     .subscribe((data: any[]) => this.ceds = data);
-  //     console.log("hey");
-  //   console.log("hey" , this.ceds);
-  // }
   fetchAllCeds():void{
     this.cedService.getAllCed()
       .subscribe(
@@ -221,22 +274,6 @@ export class StructureDeRechercheComponent {
     }
    }
 
-  // fetchAllCeds(): void {
-  //   this.http.get<any[]>('http://localhost:8089/phd/auth/users/ced/get-all-etablissement', { responseType: 'json' })
-  //     .subscribe(
-  //       (response: any) => {
-  //         this.ceds = response;
-  //         console.log('CEDs fetched:', this.ceds);
-  //         alert('CEDs fetched successfully!'); // Notify upon success
-  //       },
-  //       (error) => {
-  //         console.error('Error fetching CEDs:', error);
-  //         alert('Failed to fetch CEDs.'); // Alert on error
-  //       }
-  //     );
-  // }
-
-
 
 
   isModalOpen = false;
@@ -245,54 +282,65 @@ export class StructureDeRechercheComponent {
   etablissement: Etablissement = new Etablissement();
   structure: Structure = new Structure();
   professeur: Professeur = new Professeur();
+  successMessage :string = '';
+
 
   onSubmit() {
-    // console.log('Form submitted:', this.etablissement, this.structure, this.professeur);
-    if (this.etablissement) {
-      // Submit Etablissement data
-      this.cedService.addEtablissement(this.idCED,this.etablissement).subscribe(
-        (newEtablissement: any) => {
-          this.etablissement.idCED = 1;
-          console.log('Etablissement added:', newEtablissement);
-        },
-        (error: any) => {
-          console.error('Error adding Etablissement:', error);
-        }
-      );
-    } else if (this.structure) {
-      // Submit Structure data
-      this.cedService.addStructure(this.idCED,this.structure).subscribe(
-        (newStr: any) => {
-          console.log('Structure added:', newStr);
-          this.structure.idEtablissement = this.selectedEtablissementId || 0;
+    if (this.etablissement && this.etablissement.nomEtablissement) {
+        // Submit Etablissement data
+        this.cedService.addEtablissement(this.idCED, this.etablissement).subscribe(
+            (response: string) => {
+                console.log('Etablissement added:', response);
+                this.successMessage = response;
+                this.loadEtablissements();
+                // this.etablissement=  null ;
 
-        },
-        (error: any) => {
-          console.error('Error adding Structure:', error);
-        }
-      );
-    } else if (this.professeur) {
-
-      this.cedService.addProfesseur(this.idCED,this.professeur).subscribe(
-        (newProf: any) => {
-          this.professeur.idEtablissement = this.selectedEtablissementId || 0;
-          this.professeur.idStructureRecherche = this.selectedStructureId || 0;
-
-        },
-        (error: any) => {
-          console.error('Error adding Professeur:', error);
-        }
-      );
+            },
+            (error: any) => {
+                console.error('Error adding Etablissement:', error);
+            }
+        );
     }
-    this.etablissement.idCED = 1;
-    this.structure.idEtablissement = this.selectedEtablissementId || 0;
-    this.professeur.idEtablissement = this.selectedEtablissementId || 0;
-    this.professeur.idStructureRecherche = this.selectedStructureId || 0;
 
-    console.log('Form submitted:', this.etablissement, this.structure, this.professeur);
+else  if (this.selectedEtablissementId !== null && this.structure.nom) { // Check if it's not null
+    this.cedService.addStructureRecherche(this.selectedEtablissementId, this.structure).subscribe(
+        (response: string) => {
+            console.log('Structure de recherche added:', response);
+            this.successMessage = response;
+        },
+        (error: any) => {
+            console.error('Error adding Structure de recherche:', error);
+        }
+    );
+}
+  else if (this.professeur) {
+        // Submit Professeur data
+        this.professeur.idEtablissement = this.selectedEtablissementId ?? 0;
+        this.professeur.idStructureRecherche = this.selectedEtablissementId ?? 0;
+        console.log('Professeur:', this.professeur);
+        this.cedService.addProfesseur(this.idCED, this.professeur).subscribe(
+            (response: string) => {
+                // this.professeur.idEtablissement = this.selectedEtablissementId || 0;
+                // this.professeur.idStructureRecherche = this.selectedStructureId || 0;
+                // professeur: Professeur | null = null;
+                this.successMessage = response;
 
-    this.close(); // Close the modal after submission
-  }
+
+            },
+            (error: any) => {
+                console.error('Error adding Professeur:', error);
+            }
+        );
+    }
+
+                // this.professeur.idEtablissement = this.selectedEtablissementId || 0;
+                // this.professeur.idStructureRecherche = this.selectedStructureId || 0;
+    // Close the modal after submission
+    console.log(this.selectedEtablissementId)
+    this.close();
+}
+
+
 
 
 
