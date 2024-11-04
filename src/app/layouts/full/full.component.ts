@@ -10,7 +10,7 @@ interface sidebarMenu {
   icon: string;
   menu: string;
 }
-const roles = {
+const role = {
   ced: '/users/ced',
   candidate: '/users/candidate',
   professeur: '/users/professeur'
@@ -25,9 +25,7 @@ const roles = {
 export class FullComponent {
 //le role pour afficher dash convenable
   user: string = "";
-
   search: boolean = false;
-
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -39,8 +37,7 @@ export class FullComponent {
     constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          // Define the routes where you want to hide the sidebar
-          const noSidebarRoutes = ['/login', '/register'];
+          const noSidebarRoutes = ['/login', '/register', '/acceuil', '/display-planning'];
           this.hideComponenets = noSidebarRoutes.includes(event.urlAfterRedirects);
 
           this.user = this.router.url;
@@ -53,7 +50,7 @@ export class FullComponent {
   routerActive: string = "activelink";
 
   ngOnInit() {
-    if (this.user == roles.ced) {
+    if (this.user == role.ced) {
       this.sidebarMenu = [
         {
           link: "/users/ced",
@@ -61,7 +58,7 @@ export class FullComponent {
           menu: "Dashboard ced",
         },
         {
-          link: "/alerts",
+          link: "/users/ced/structure",
           icon: "file-text",
           menu: "Structures de Recherche", // section pour voir les sturctures de recherche et les sujts par etablissment
         },
@@ -71,23 +68,23 @@ export class FullComponent {
           menu: "Les préinscriptions", // le statut de chaque préinscription
         },
         {
-          link: "/menu",
-          icon: "menu",
-          menu: "Liste des convoqués", // liste des candidats convoqués
+          link: "/create-planning",
+          icon: "layout",
+          menu: "Planification Preinscription", // le statut de chaque préinscription
         },
         {
-          link: "/expansion",
+          link: "/users/ced/formalite",
           icon: "divide-circle",
           menu: "Formalités administratives", // les formalités administratives
         },
         {
-          link: "/slider",
+          link: "/users/ced/bourse",
           icon: "layers",
           menu: "Les bourses",
         },
       ];
     }
-    else if (this.user == roles.candidate) {
+    else if (this.user == role.candidate) {
       this.sidebarMenu = [
         {
           link: "/users/candidate",
@@ -116,7 +113,7 @@ export class FullComponent {
         },
       ];
     }
-    else if (this.user == roles.professeur) {
+    else if (this.user == role.professeur) {
       this.sidebarMenu = [
         {
           link: "/users/professeur",
@@ -148,7 +145,7 @@ export class FullComponent {
     else  {
       this.sidebarMenu = [
         {
-              link: "/home",
+              link: "/acceuil",
               icon: "home",
               menu: "Dashboard",
             },
@@ -231,11 +228,17 @@ export class FullComponent {
               link: "/slide-toggle",
               icon: "layers",
               menu: "Slide Toggle",
-            },
+            }
       ];
     }
   }
-
+  logout() {
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login']);
+  }
+  goToEditProfile(): void {
+    this.router.navigate(['/edit']); // Navigate to EditProfileComponent
+  }
   sidebarMenu: sidebarMenu[] = [];
 
   // sidebarMenu: sidebarMenu[] = [
@@ -326,12 +329,4 @@ export class FullComponent {
   //   },
   // ]
 
-  logout() {
-    // Clear any stored session data (like tokens)
-    localStorage.clear();
-    sessionStorage.clear();
-
-    // Navigate to the login page
-    this.router.navigate(['/login']);
-  }
 }

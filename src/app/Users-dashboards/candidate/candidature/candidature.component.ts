@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-candidature',
+  selector: 'app-demande-bourse',
   standalone: true,
   imports: [],
   templateUrl: './candidature.component.html',
