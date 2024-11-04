@@ -80,6 +80,7 @@ const routes: Routes = [
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
       { path: "create-planning", component: CreatePlanningComponent },
       { path: "display-planning", component: DisplayPlanningComponent },
+      {path: "users/ced/bourse", component: voirDemandeBourseComponent},
 
       {path:"users/ced/structure", component:StructureDeRechercheComponent},
       {path:"users/ced/candidat/:id", component:CandidatProfilComponent},

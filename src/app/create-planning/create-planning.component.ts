@@ -31,7 +31,7 @@ export class CreatePlanningComponent {
     this.planningService.createPlanning(this.planning).subscribe(response => {
       console.log('Planning created:', response);
       alert('Planning created successfully!');
-      this.router.navigate(['/display-planning']);
+      this.router.navigate(['users/ced']);
     }, error => {
       console.error('Error creating planning:', error);
       alert('Failed to create planning.');

@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router'; // Import RouterModule
+import { MatCardModule } from '@angular/material/card'; // Import MatCardModule
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,7 +21,6 @@ import { ComponentsModule } from './components/components.module';
 // Components
 import { CEDComponent } from './Users-dashboards/ced/ced.component';
 import { ProfesseurComponent } from './Users-dashboards/professeur/professeur.component';
-import { CandidateComponent } from './Users-dashboards/candidate/candidate.component';
 import { CreatePlanningComponent } from './create-planning/create-planning.component';
 import { DisplayPlanningComponent } from './display-planning/display-planning.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,20 +31,23 @@ import { AcceuilComponent } from './acceuil/acceuil.component';
     AppComponent,
     FullComponent,
     CreatePlanningComponent,
-    DisplayPlanningComponent
+    DisplayPlanningComponent,
+
   ],
   imports: [
     BrowserModule,
     MatIconModule,
     AppRoutingModule,
+    MatCardModule,
     BrowserAnimationsModule,
-    RouterModule,  // Ensure RouterModule is added
+    RouterModule,
     FeatherModule.pick(allIcons),
     DemoFlexyModule,
     DashboardModule,
     ComponentsModule,
     FormsModule,
     AcceuilComponent,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

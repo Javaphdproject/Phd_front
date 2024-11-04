@@ -73,11 +73,6 @@ export class FullComponent {
           menu: "Planification Preinscription", // le statut de chaque préinscription
         },
         {
-          link: "/menu",
-          icon: "menu",
-          menu: "Liste des convoqués", // liste des candidats convoqués
-        },
-        {
           link: "/users/ced/formalite",
           icon: "divide-circle",
           menu: "Formalités administratives", // les formalités administratives
