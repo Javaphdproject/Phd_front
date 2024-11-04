@@ -30,10 +30,11 @@ import { CandidatureComponent } from './Users-dashboards/candidate/candidature/c
 import { ConvocationComponent } from './Users-dashboards/candidate/convocation/convocation.component';
 import { DemandeBourseComponent } from './Users-dashboards/candidate/demande-bourse/demande-bourse.component';
 import { MesSujetsComponent } from './Users-dashboards/professeur/mes-sujets/mes-sujets.component';
-import { MesPlanningsComponent } from './Users-dashboards/professeur/mes-plannings/mes-plannings.component';
 import { EntretiensComponent } from './Users-dashboards/professeur/entretiens/entretiens.component';
 import { MesDoctorantsComponent } from './Users-dashboards/professeur/mes-doctorants/mes-doctorants.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { CandidatComponent } from './Users-dashboards/professeur/candidat/candidat.component';
+import { CandidatProfilComponent } from './Users-dashboards/ced/candidat-profil/candidat-profil.component';
 
 
 const routes: Routes = [
@@ -41,8 +42,8 @@ const routes: Routes = [
     path:"",
     component:FullComponent,
     children: [
-      {path:"", redirectTo:"/home", pathMatch:"full"},
-      {path:"home", component:DashboardComponent},
+      { path: "", redirectTo: "login", pathMatch: "full" },
+      { path: "home", component: DashboardComponent },
       {path:"alerts", component:AlertsComponent},
       {path:"forms", component:FormsComponent},
       {path:"table", component:ProductComponent},
@@ -70,6 +71,7 @@ const routes: Routes = [
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
       {path:"users/ced/preinscription", component:PreinscriptionComponent},
+      {path:"users/ced/candidat/:id", component:CandidatProfilComponent},
 
 
 
@@ -84,7 +86,7 @@ const routes: Routes = [
       //dash professeur
       {path:"users/professeur", component:ProfesseurComponent},
       {path:"users/professeur/MesSujets", component:MesSujetsComponent},
-      {path:"users/professeur/MesPlannings", component:MesPlanningsComponent},
+      {path:"users/professeur/mescandidates", component:CandidatComponent},
       {path:"users/professeur/entretiens", component:EntretiensComponent},
       {path:"users/professeur/MesDoctorants", component:MesDoctorantsComponent},
 
@@ -94,8 +96,8 @@ const routes: Routes = [
     ]
   },
 
-  {path:"", redirectTo:"/home", pathMatch:"full"},
-  {path:"**", redirectTo:"/home", pathMatch:"full"},
+  {path:"", redirectTo: "/login", pathMatch:"full"},
+  {path:"**", redirectTo: "/login", pathMatch:"full"},
 ];
 
 @NgModule({

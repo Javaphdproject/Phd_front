@@ -22,7 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
-    FullComponent
+    FullComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,7 @@ import { MatIconModule } from '@angular/material/icon';
     CEDComponent,
     ProfesseurComponent,
     CandidateComponent,
-   HttpClientModule
+   HttpClientModule,
 ],
   providers: [],
   bootstrap: [AppComponent]

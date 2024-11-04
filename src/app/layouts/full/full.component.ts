@@ -4,17 +4,13 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface sidebarMenu {
   link: string;
   icon: string;
   menu: string;
 }
-const roles = {
-  ced: '/users/ced',
-  candidate: '/users/candidate',
-  professeur: '/users/professeur'
-};
 
 @Component({
   selector: 'app-full',
@@ -25,6 +21,7 @@ const roles = {
 export class FullComponent {
 //le role pour afficher dash convenable
   user: string = "";
+  userType: string | null = null;
 
   search: boolean = false;
 
@@ -36,14 +33,12 @@ export class FullComponent {
 
     hideComponenets: boolean = false; // hide sidebar
     drawer: any;
-    constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
+    constructor(private breakpointObserver: BreakpointObserver, private router: Router, private auth : AuthService) {
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           const noSidebarRoutes = ['/login', '/register'];
           this.hideComponenets = noSidebarRoutes.includes(event.urlAfterRedirects);
 
-          this.user = this.router.url;
-          console.log(this.user);
         }
       });
 
@@ -52,7 +47,9 @@ export class FullComponent {
   routerActive: string = "activelink";
 
   ngOnInit() {
-    if (this.user == roles.ced) {
+    this.userType = this.auth.getRole();
+
+    if (this.userType == "CED") {
       this.sidebarMenu = [
         {
           link: "/users/ced",
@@ -88,7 +85,7 @@ export class FullComponent {
 
       ];
     }
-    else if (this.user == roles.candidate) {
+    else if (this.userType == "CANDIDAT") {
       this.sidebarMenu = [
         {
           link: "/users/candidate",
@@ -117,12 +114,12 @@ export class FullComponent {
         },
       ];
     }
-    else if (this.user == roles.professeur) {
+    else if (this.userType == "PROFESSEUR") {
       this.sidebarMenu = [
         {
           link: "/users/professeur",
           icon: "home",
-          menu: "Dashboard",
+          menu: "Dashboard PROF",
         },
         {
           link: "/users/professeur/MesSujets",
@@ -130,9 +127,9 @@ export class FullComponent {
           menu: "Mes Sujets",
         },
         {
-          link: "/users/professeur/MesPlannings",
+          link: "users/professeur/mescandidates",
           icon: "disc",
-          menu: "Mes Plannings",
+          menu: "Gestion Des Candidatures",
         },
         {
           link: "/users/professeur/entretiens",
@@ -241,7 +238,7 @@ export class FullComponent {
     this.router.navigate(['/login']);
   }
   goToEditProfile(): void {
-    this.router.navigate(['/edit']); // Navigate to EditProfileComponent
+    this.router.navigate(['/edit']);
   }
   sidebarMenu: sidebarMenu[] = [];
 }

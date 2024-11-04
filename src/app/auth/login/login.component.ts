@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Route, Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,7 +21,8 @@ import { AuthService } from 'src/app/services/auth.service';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckbox
+    MatCheckbox,
+    MatIconModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -29,6 +31,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent {
 email : string = '';
 password : string = '';
+isPasswordVisible: boolean = false;
+
   constructor(private http : HttpClient, private router : Router, private auth : AuthService) { }
 
   ngOnInit(): void {
@@ -49,7 +53,7 @@ console.log(response);
           const role = parsedResponse.role;
           this.auth.setUserId(parsedResponse.idUser); 
           console.log(role);
-          // Navigate based on role
+          this.auth.setRole(role);
           if (role === 'CANDIDAT') {
             this.router.navigate(['/users/candidate']);
           } else if (role === 'CED') {
@@ -69,6 +73,9 @@ console.log(response);
       console.error('Login request failed', error);
       alert('Login request failed');
     });
+}
+togglePasswordVisibility(): void {
+  this.isPasswordVisible = !this.isPasswordVisible;
 }
 
 }
