@@ -30,7 +30,6 @@ import { CandidatureComponent } from './Users-dashboards/candidate/candidature/c
 import { ConvocationComponent } from './Users-dashboards/candidate/convocation/convocation.component';
 import { DemandeBourseComponent } from './Users-dashboards/candidate/demande-bourse/demande-bourse.component';
 import { MesSujetsComponent } from './Users-dashboards/professeur/mes-sujets/mes-sujets.component';
-import { MesPlanningsComponent } from './Users-dashboards/professeur/mes-plannings/mes-plannings.component';
 import { EntretiensComponent } from './Users-dashboards/professeur/entretiens/entretiens.component';
 import { MesDoctorantsComponent } from './Users-dashboards/professeur/mes-doctorants/mes-doctorants.component';
 import { CreatePlanningComponent } from './create-planning/create-planning.component';
@@ -40,6 +39,7 @@ import { CandidatProfilComponent } from './Users-dashboards/ced/candidat-profil/
 import { FormaliteAdministrativeComponent } from './Users-dashboards/ced/formalite-administrative/formalite-administrative.component';
 import { voirDemandeBourseComponent } from './Users-dashboards/ced/demande-bourse/demande-bourse.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { CandidatComponent } from './Users-dashboards/professeur/candidat/candidat.component';
 
 
 
@@ -50,6 +50,7 @@ const routes: Routes = [
     children: [
       {path:"", redirectTo:"/acceuil", pathMatch:"full"},
       {path:"home", component:DashboardComponent},
+
       {path:"alerts", component:AlertsComponent},
       {path:"forms", component:FormsComponent},
       {path:"table", component:ProductComponent},
@@ -81,6 +82,7 @@ const routes: Routes = [
       { path: "create-planning", component: CreatePlanningComponent },
       { path: "display-planning", component: DisplayPlanningComponent },
       {path: "users/ced/bourse", component: voirDemandeBourseComponent},
+      {path:"users/ced/candidat/:id", component:CandidatProfilComponent},
 
       {path:"users/ced/structure", component:StructureDeRechercheComponent},
       {path:"users/ced/candidat/:id", component:CandidatProfilComponent},
@@ -94,7 +96,7 @@ const routes: Routes = [
       //dash professeur
       {path:"users/professeur", component:ProfesseurComponent},
       {path:"users/professeur/MesSujets", component:MesSujetsComponent},
-      {path:"users/professeur/MesPlannings", component:MesPlanningsComponent},
+      {path:"users/professeur/mescandidates", component:CandidatComponent},
       {path:"users/professeur/entretiens", component:EntretiensComponent},
       {path:"users/professeur/MesDoctorants", component:MesDoctorantsComponent},
 
@@ -106,6 +108,8 @@ const routes: Routes = [
 
   {path:"", redirectTo:"/acceuil", pathMatch:"full"},
   {path:"**", redirectTo:"/acceuil", pathMatch:"full"},
+  /*{path:"", redirectTo: "/login", pathMatch:"full"},
+  {path:"**", redirectTo: "/login", pathMatch:"full"},*/
 ];
 
 @NgModule({

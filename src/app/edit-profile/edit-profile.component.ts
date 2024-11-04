@@ -31,27 +31,26 @@ export class EditProfileComponent implements OnInit {
   email: string = '';
   fname: string = '';
   lname: string = '';
-  isPasswordVisible: boolean = false;
 
   tel: string = '';
   password: string = '';
   confirmedpassword: string = '';
   userId: number | null = null;
-userType: string = "CANDIDAT";
+  userType: string | null = null;
   constructor(private auth: AuthService, private http: HttpClient) {}
 
   ngOnInit() {
     this.userId = this.auth.getUserId(); 
+    this.userType = this.auth.getRole();
+    console.log(this.userId);
+    console.log(this.userType);
     if (this.userId) {
       this.fetchUserData(this.userId); // Fetch user data when the component initializes
     }
   }
-  togglePasswordVisibility(): void {
-    this.isPasswordVisible = !this.isPasswordVisible;
-  }
+
 
   fetchUserData(userId: number) {
-    // Call the API to fetch user data. Adjust the URL as per your backend.
     this.http.get(`http://localhost:8089/phd/auth/getuser/${userId}`).subscribe(
       (data: any) => {
         // Assume your API returns an object with user details
@@ -59,7 +58,6 @@ userType: string = "CANDIDAT";
         this.lname = data.nom;
         this.email = data.email;
         this.tel = data.tel;
-        this.password = data.mdp;
       },
       (error) => {
         console.error('Error fetching user data', error);
@@ -68,13 +66,11 @@ userType: string = "CANDIDAT";
   }
 
   update() {
-    // Prepare user data for update, adjust as needed
     const updatedUserData = {
       "prenom": this.fname,
       "nom": this.lname,
       "email": this.email,
       "tel": this.tel,
-      "mdp": this.password,
       "idUser": this.userId,
       "userType": this.userType
     };

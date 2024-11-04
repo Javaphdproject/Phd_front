@@ -25,6 +25,7 @@ import { CreatePlanningComponent } from './create-planning/create-planning.compo
 import { DisplayPlanningComponent } from './display-planning/display-planning.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AcceuilComponent } from './acceuil/acceuil.component';
+import { CandidateComponent } from './Users-dashboards/candidate/candidate.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AcceuilComponent } from './acceuil/acceuil.component';
     FullComponent,
     CreatePlanningComponent,
     DisplayPlanningComponent,
+
 
   ],
   imports: [
@@ -48,8 +50,12 @@ import { AcceuilComponent } from './acceuil/acceuil.component';
     FormsModule,
     AcceuilComponent,
     ReactiveFormsModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    CEDComponent,
+    ProfesseurComponent,
+    CandidateComponent,
+   HttpClientModule,
+],
   providers: [],
   bootstrap: [AppComponent]
 })

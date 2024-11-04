@@ -16,9 +16,8 @@ import { FeatherModule } from 'angular-feather';
 import { AcceptedcandidatService } from 'src/app/services/acceptedcandidat.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
 @Component({
-  selector: 'app-entretiens',
+  selector: 'app-candidat',
   standalone: true,
   imports: [
     MatTableModule,
@@ -40,19 +39,23 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatNativeDateModule,
 
   ],
-    templateUrl: './entretiens.component.html',
-  styleUrl: './entretiens.component.scss'
+    templateUrl: './candidat.component.html',
+  styleUrl: './candidat.component.scss'
 })
 
 
-export class EntretiensComponent {
+
+
+export class CandidatComponent {
   acceptedCandidatures: boolean = false; // To keep track of accepted candidatures
 
   candidatures: candidature[] = [];
   idUser: number | null = null;
+  selectedCandidatureId: number = 0;
+  specifiedDate: Date | null = null; // Date input field
+  showForm = false; // Show the form
 titre : string = '';
-note : string = '';
-  constructor(private http: HttpClient, private accp: AcceptedcandidatService, private auth: AuthService, private router: Router) {}
+  constructor(private http: HttpClient, private accp: AcceptedcandidatService, private auth: AuthService, private router : Router) {}
 
   ngOnInit() {
     this.idUser = this.auth.getUserId(); 
@@ -61,16 +64,14 @@ note : string = '';
       this.fetchAcceptedCandidate(this.idUser); // Fetch user data when the component initializes
     }
   }
-  saveForm(){
 
-  }
   fetchAcceptedCandidate(idUser: number): void {
-    this.http.get(`http://localhost:8089/phd/Professeur/listentretien/${idUser}`).subscribe({
+    this.http.get(`http://localhost:8089/phd/Professeur/candidatesaccp/${idUser}`).subscribe({
       next: (data: any) => {
         this.candidatures = data.map((item: any) => {
           const user = item[0]; // Check this part
           const sujet = item[1];
-          const entretiens = item[2];
+          const candidat = item[2];
           this.accp.setIdProfesseur(sujet.idProfesseur); // Set idProfesseur
           this.accp.setIdCandidatUser(user.idUser); // Store user ID in local storage
           return {
@@ -81,8 +82,7 @@ note : string = '';
             titre: sujet.titre,
             idSujet: sujet.idSujet,
             idProfesseur: sujet.idProfesseur,
-            idEntretien: entretiens.idEntretien,
-            idCandidate: entretiens.idCandidate,
+            idCandidate: candidat.idCandidate
           };
         });
         console.log(this.candidatures);
@@ -93,35 +93,65 @@ note : string = '';
     });
   }
 
-  viewDetails(candidateId: number): void {
-    console.log("Viewing details for candidate with ID:", candidateId);
-    this.router.navigate(['/users/ced/candidat', candidateId]);
+
+
+  acceptCandidature(id: number) {
+    console.log('Selected Candidature ID:', id); 
+    this.selectedCandidatureId = id; 
+    this.accp.setIdCandidatUser(id); 
+    console.log('Stored Candidature ID:', this.selectedCandidatureId); 
+    this.showForm = true;
   }
- 
-  submitNote(id: number) {
-    const candidature = this.candidatures.find(c => c.idEntretien === id);
+  saveForm() {
+    if (this.specifiedDate) {
+        const body = {
+            date: this.specifiedDate.toISOString().split('T')[0], // Format the date as YYYY-MM-DD
+        };
+        console.log('Selected Candidature ID:', this.selectedCandidatureId);
 
-    if (!candidature) {
-        console.error('Candidature not found for ID:', id);
-        return; // Exit if candidature is not found
+        this.http.post(`http://localhost:8089/phd/Professeur/calltoentretien/${this.idUser}/${this.selectedCandidatureId}`, 
+          body, { responseType: 'text' }).subscribe({
+          next: (response) => {
+              alert('Candidature accepted successfully');
+              this.fetchAcceptedCandidate(this.idUser!); // Refresh the candidates
+              this.showForm = false; // Hide the form
+          },
+          error: (error) => {
+              console.error('Error accepting candidature', error);
+          }
+        });
+    } else {
+        alert('Please select a date before saving.');
     }
+}
 
-    let body = {
-        "resultat": candidature.note 
-    };
 
-    this.http.put(`http://localhost:8089/phd/Professeur/notecandidat/${id}`, body, { responseType: 'text' }).subscribe({
-        next: (response) => {
-            alert(response);
-            this.fetchAcceptedCandidate(this.idUser!); // Refresh the candidates
+  refuseCandidature(id: number, subject: string): void {
+    this.selectedCandidatureId = id; // Store the selected candidature ID
+    this.accp.setIdCandidatUser(id); // Update local storage for selected candidate ID
+
+    this.http.post('http://localhost:8089/phd/Professeur/refusecandidat/2/1', {}, { responseType: 'text' })
+    .subscribe(
+        response => {
+            alert(response); // This will log the plain text response
         },
-        error: (error) => {
-            console.error('There was an error updating the note!', error);
+        error => {
+            console.error('Error:', error);
         }
-    });
-}
+    );
 
 }
+
+viewDetails(candidateId: number): void {
+  console.log("Viewing details for candidate with ID:", candidateId);
+  this.router.navigate(['/users/ced/candidat', candidateId]);
+}
+  
+clearForm() {
+  this.showForm = false; // Hide the form
+}
+}
+
 export interface candidature {
   
   nom: string;
@@ -130,7 +160,5 @@ export interface candidature {
   titre: string;
   idSujet: number;
   idProfesseur: number;
-  idEntretien: number;
-  note?: number;  
   idCandidate: number;
 }

@@ -36,15 +36,13 @@
       <div class="ms-auto">
         <button mat-button class="fs-16 pt-4 pb-4 ps-8 pe-8 text-light-muted d-flex align-items-center" [matMenuTriggerFor]="menu">
           <div class="d-flex align-items-center">
-            <img src="assets/images/user2.webp" class="rounded-circle" alt="">
-            <i-feather name="chevron-down" class="feather-base"></i-feather>
+            <img src="assets/images/default-avatar.png" class="rounded-circle" width="35px" alt="">
+           <i-feather name="chevron-down" class="feather-base"></i-feather>
           </div>
         </button>
         <mat-menu #menu="matMenu" class="profile-dropdown">
           <div class="p-16 mb-4">
             <button mat-menu-item class="fs-16" (click)="goToEditProfile()">Edit Profile</button>
-            <button mat-menu-item class="fs-16">Account</button>
-            <button mat-menu-item class="fs-16">My Settings</button>
           </div>
           <hr>
           <div class="p-16">
