@@ -42,22 +42,30 @@ export class ProfesseurComponent {
   public activeusercardChartOptions !: Partial<activeusercardChartOptions> | any;
 
   constructor() {
-    // active users
+    // Original data for "entretien" counts by month for the year 2024
+    const acceptedCounts = [0, 0, 8, 12, 15, 9, 7, 11, 14, 13, 6, 10];
+    const refusedCounts = [0, 0, 1, 3, 2, 2, 1, 4, 3, 2, 1, 2];
+
+    // Reverse the lists
+    const reversedAcceptedCounts = [...acceptedCounts].reverse();
+    const reversedRefusedCounts = [...refusedCounts].reverse();
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
     this.activeusercardChartOptions = {
       series: [
         {
-          name: 'Ample Admin',
-          data: [355, 390, 300, 350, 390, 180, 355, 390, 300, 350, 390, 180],
-          color: "#fb9678",
+          name: 'Accepted',
+          data: reversedAcceptedCounts,
+          color: "#03c9d7",
         },
         {
-          name: 'Pixel Admin',
-          data: [280, 250, 325, 215, 250, 310, 280, 250, 325, 215, 250, 310],
-          color: "#03c9d7",
+          name: 'Refused',
+          data: reversedRefusedCounts,
+          color: "#fb9678",
         },
       ],
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        categories: months,
       },
       chart: {
         toolbar: {
@@ -65,37 +73,29 @@ export class ProfesseurComponent {
         },
         type: 'bar',
         height: 300,
-
       },
       legend: {
-        show: false,
+        show: true,  // Show the legend to distinguish between accepted and refused
       },
-
       tooltip: {
         theme: "dark"
       },
-
       grid: {
         show: false,
       },
-
       dataLabels: {
         enabled: false,
       },
-
       stroke: {
         show: true,
         width: 5,
         colors: ['none']
       },
-
       plotOptions: {
         bar: {
           columnWidth: '45%',
           borderRadius: 8,
         },
-      },
-    }
-  }
-
-}
+      },
+    }
+  }}

@@ -84,11 +84,11 @@ export class FullComponent {
     }
     else if (this.userType == "CANDIDAT") {
       this.sidebarMenu = [
-        {
-          link: "/users/candidate",
-          icon: "home",
-          menu: "Dashboard Candidate",
-        },
+        // {
+        //   link: "/users/candidate",
+        //   icon: "home",
+        //   menu: "Dashboard Candidate",
+        // },
         {
           link: "/users/candidate/sujet",
           icon: "disc",

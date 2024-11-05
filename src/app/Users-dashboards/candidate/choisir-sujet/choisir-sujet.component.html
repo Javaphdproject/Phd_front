@@ -32,8 +32,7 @@
           <ng-container matColumnDef="demande">
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let MesSujets" class="centered-content">
-                <button mat-raised-button color="primary" (click)="selectAndAddSujet(MesSujets)" *ngIf="!(ischossed)">Demande</button>
-              <p *ngIf="ischossed">demanded</p>      
+                <button mat-raised-button color="primary" (click)="selectAndAddSujet(MesSujets)" >Demande</button>
               </td>
             
             

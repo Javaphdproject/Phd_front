@@ -112,10 +112,9 @@
             <ng-container *ngIf="candidature.etatCandidature; else showStatus">
               <span class="badge rounded-pill"
                     [ngClass]="{
-                      'badge-success': candidature.etatCandidature === 'accepted',
-                      'badge-danger': candidature.etatCandidature === 'refused',
-                      'badge-blue': candidature.etatCandidature === 'called',
-                      'badge-purple': candidature.etatCandidature === 'doctorant'
+                    'badge-success': candidature.etatCandidature === 'accepted' || candidature.etatCandidature === 'called' || candidature.etatCandidature === 'doctorant',
+                     'badge-danger': candidature.etatCandidature === 'refused',
+
 
                     }">
                 {{ candidature.etatCandidature }}
