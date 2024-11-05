@@ -114,6 +114,9 @@
                     [ngClass]="{
                       'badge-success': candidature.etatCandidature === 'accepted',
                       'badge-danger': candidature.etatCandidature === 'refused',
+                      'badge-blue': candidature.etatCandidature === 'called',
+                      'badge-purple': candidature.etatCandidature === 'doctorant'
+
                     }">
                 {{ candidature.etatCandidature }}
               </span>

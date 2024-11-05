@@ -27,7 +27,6 @@ import { ProfesseurComponent } from './Users-dashboards/professeur/professeur.co
 import { PreinscriptionComponent } from './Users-dashboards/ced/preinscription/preinscription.component';
 import { ChoisirSujetComponent } from './Users-dashboards/candidate/choisir-sujet/choisir-sujet.component';
 import { CandidatureComponent } from './Users-dashboards/candidate/candidature/candidature.component';
-import { ConvocationComponent } from './Users-dashboards/candidate/convocation/convocation.component';
 import { DemandeBourseComponent } from './Users-dashboards/candidate/demande-bourse/demande-bourse.component';
 import { MesSujetsComponent } from './Users-dashboards/professeur/mes-sujets/mes-sujets.component';
 import { EntretiensComponent } from './Users-dashboards/professeur/entretiens/entretiens.component';
@@ -40,6 +39,7 @@ import { FormaliteAdministrativeComponent } from './Users-dashboards/ced/formali
 import { voirDemandeBourseComponent } from './Users-dashboards/ced/demande-bourse/demande-bourse.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { CandidatComponent } from './Users-dashboards/professeur/candidat/candidat.component';
+import { SuiviCandidatureComponent } from './Users-dashboards/candidate/suivi-candidature/suivi-candidature.component';
 
 
 
@@ -91,8 +91,8 @@ const routes: Routes = [
       {path:"users/candidate", component:CandidateComponent},
       { path: "users/candidate/sujet", component: ChoisirSujetComponent },
       { path: "users/candidate/candidature", component: CandidatureComponent },
-      { path: "users/candidate/convocation", component: ConvocationComponent },
       { path: "users/candidate/bourse", component: DemandeBourseComponent },
+      {path: "users/candidaate/suivi",component: SuiviCandidatureComponent},
       //dash professeur
       {path:"users/professeur", component:ProfesseurComponent},
       {path:"users/professeur/MesSujets", component:MesSujetsComponent},

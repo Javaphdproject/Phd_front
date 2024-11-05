@@ -1,7 +1,7 @@
-import { Sujet, SujetService } from 'src/app/services/sujet-service.service';
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CedService } from 'src/app/service/ced.service';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -11,37 +11,37 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FeatherModule } from 'angular-feather';
-import { AcceptedcandidatService } from 'src/app/services/acceptedcandidat.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatIconModule } from '@angular/material/icon';
-import { R } from '@angular/cdk/keycodes';
+import { AcceptedcandidatService } from 'src/app/services/acceptedcandidat.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-choisir-sujet',
+  selector: 'app-suivi-candidature',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
+    MatTableModule,
+    RouterModule,
+    FeatherModule,
+    MatSidenavModule,
+    MatRippleModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatCardModule,
-    MatCheckbox,
-    MatRippleModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSidenavModule,
+    MatCheckbox,
+    CommonModule,
     MatTableModule,
-    RouterModule,
-    FeatherModule,
-    MatIconModule
-  ],  templateUrl: './choisir-sujet.component.html',
-  styleUrl: './choisir-sujet.component.scss'
+    MatButtonModule
+  ],
+  templateUrl: './suivi-candidature.component.html',
+  styleUrl: './suivi-candidature.component.scss'
 })
-
-  export class ChoisirSujetComponent {
-    MesSujets: MesSujets[] = [];
+export class SuiviCandidatureComponent {
+  MesSujets: MesSujets[] = [];
     idUser: number | null = null;
     ischossed = false;
     selectedSujet: MesSujets | null = null; // Now holds the selected `MesSujets`
@@ -58,32 +58,10 @@ import { R } from '@angular/cdk/keycodes';
     }
     selectAndAddSujet(sujet: MesSujets) {
       this.selectedSujet = sujet;
-      this.addsujet(sujet.idSujet);
     }
     
     
-    addsujet(idSujet: number) {
-      if (idSujet && this.idUser !== null) {
-        this.http.post(`http://localhost:8089/phd/candidature/add/${this.idUser}/${idSujet}`, {}, { responseType: 'text' })
-          .subscribe({
-            next: (data: string) => {
-              alert(data); 
-              this.fetchAcceptedCandidate();
-              this.ischossed = true;
-            },
-            error: (error) => {
-              // Here you can handle errors specifically
-              if (error.status === 400) {
-                alert(error.error);
-              } else {
-                console.error('le max est 3!', error); 
-              }
-            }
-          });
-      } else {
-        console.error('No subject selected or user ID is null');
-      }
-    }
+
     
   
     fetchAcceptedCandidate(): void {

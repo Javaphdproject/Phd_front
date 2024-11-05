@@ -100,9 +100,9 @@ export class FullComponent {
           menu: "Mes Candidature",
         },
         {
-          link: "/users/candidate/convocation",
+          link: "/users/candidaate/suivi",
           icon: "menu",
-          menu: "Convocations",
+          menu: "suivi candidature",
         },
         {
           link: "/users/candidate/bourse",
@@ -232,8 +232,11 @@ export class FullComponent {
   }
   logout() {
     localStorage.removeItem('authToken');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload(); // Force a full page reload
+    });
   }
+  
   goToEditProfile(): void {
     this.router.navigate(['/edit']);
   }

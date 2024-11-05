@@ -103,10 +103,12 @@ titre : string = '';
     this.showForm = true;
   }
   saveForm() {
+    
     if (this.specifiedDate) {
-        const body = {
-            date: this.specifiedDate.toISOString().split('T')[0], // Format the date as YYYY-MM-DD
-        };
+      const adjustedDate = new Date(this.specifiedDate.getTime() - this.specifiedDate.getTimezoneOffset() * 60000);
+      const body = {
+        date: adjustedDate.toISOString().split('T')[0] // Corrected to ensure no timezone shifts
+      };
         console.log('Selected Candidature ID:', this.selectedCandidatureId);
 
         this.http.post(`http://localhost:8089/phd/Professeur/calltoentretien/${this.idUser}/${this.selectedCandidatureId}`, 

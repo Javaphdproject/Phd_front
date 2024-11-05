@@ -45,7 +45,6 @@
           <th mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let candidature" class="centered-content">
             <button mat-raised-button color="primary" (click)="acceptCandidature(candidature.iduser)">
-              {{candidature.iduser}}
               Accept
             </button>
             <button mat-raised-button color="warn" (click)="refuseCandidature(candidature.iduser, candidature.titre)" style="margin-left: 5%;">

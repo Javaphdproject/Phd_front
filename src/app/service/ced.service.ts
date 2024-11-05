@@ -184,4 +184,17 @@ addRendezVous(dateRendezvous: Date, etatRendezVous: string, idCandidate: number)
     return this.http.put<void>(`http://localhost:8089/phd/auth/users/bourse/change-status/${id}?status=${status}`, {});
   }
 
+  
+  getCandidatureByCandidateId(idCandidate: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/candidature/by-candidate/${idCandidate}`);
+  }
+  getSujetById(sujetId: number): Observable<Sujet> {
+    return this.http.get<Sujet>(`${this.apiUrl}/sujet/${sujetId}`).pipe(
+        catchError((error) => {
+            console.error('Error fetching sujet:', error);
+            return throwError(() => new Error('Error fetching sujet, please try again later.'));
+        })
+    );
+}
+
 }
